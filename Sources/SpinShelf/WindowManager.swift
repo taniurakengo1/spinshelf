@@ -13,8 +13,7 @@ func CGSSetWindowAlpha(_ cid: Int32, _ wid: Int32, _ alpha: Float) -> Int32
 func _AXUIElementGetWindow(_ element: AXUIElement, _ windowID: UnsafeMutablePointer<CGWindowID>)
     -> AXError
 
-@_silgen_name("CGSMoveWindow")
-func CGSMoveWindow(_ cid: Int32, _ wid: Int32, _ point: UnsafePointer<CGPoint>) -> Int32
+
 
 /// AXUIElementを使ったウィンドウの列挙と移動
 final class WindowManager {
