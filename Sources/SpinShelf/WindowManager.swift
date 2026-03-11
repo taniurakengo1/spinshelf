@@ -197,8 +197,6 @@ final class WindowManager {
     ) {
         let (newOrigin, newSize) = calculateTarget(window, from: source, to: target)
         let sameRes = isSameResolution(source, target)
-        let conn = CGSMainConnectionID()
-        let windowID = getWindowID(window.element)
 
         if sameRes {
             // 同じ解像度: 座標移動のみ

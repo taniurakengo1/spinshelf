@@ -21,24 +21,25 @@ Unlike typical window managers that move individual windows, SpinShelf shifts **
 
 ## Installation
 
-### Homebrew
-
-```bash
-brew tap taniurakengo1/tap
-brew install spinshelf
-spinshelf
-```
-
-### Build from source
-
 ```bash
 git clone https://github.com/taniurakengo1/spinshelf.git
 cd spinshelf
-swift build
-swift run
+sudo make install
 ```
 
-> **Note:** Xcode Command Line Tools are required. Install with `xcode-select --install` if needed.
+This builds a release binary and installs it to `/usr/local/bin/spinshelf`. Then run:
+
+```bash
+spinshelf
+```
+
+To uninstall:
+
+```bash
+make uninstall
+```
+
+> **Note:** Xcode or Command Line Tools are required. Install with `xcode-select --install` if needed.
 
 ### First launch
 
