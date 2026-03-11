@@ -79,23 +79,36 @@ final class WindowManager {
         for window: WindowInfo,
         displays: [DisplayManager.DisplayInfo]
     ) -> Int? {
+        Self.displayIndex(
+            windowPosition: window.position,
+            windowSize: window.size,
+            displayFrames: displays.map(\.frame)
+        )
+    }
+
+    /// ウィンドウの所属ディスプレイを判定（テスト可能なstaticメソッド）
+    static func displayIndex(
+        windowPosition: CGPoint,
+        windowSize: CGSize,
+        displayFrames: [CGRect]
+    ) -> Int? {
         let windowCenter = CGPoint(
-            x: window.position.x + window.size.width / 2,
-            y: window.position.y + window.size.height / 2
+            x: windowPosition.x + windowSize.width / 2,
+            y: windowPosition.y + windowSize.height / 2
         )
 
         // 中心点が含まれるディスプレイを探す
-        if let idx = displays.firstIndex(where: { $0.frame.contains(windowCenter) }) {
+        if let idx = displayFrames.firstIndex(where: { $0.contains(windowCenter) }) {
             return idx
         }
 
         // 中心点がどのディスプレイにもない場合、最も重なりが大きいディスプレイ
-        let windowRect = CGRect(origin: window.position, size: window.size)
+        let windowRect = CGRect(origin: windowPosition, size: windowSize)
         var bestIndex = 0
         var bestArea: CGFloat = 0
 
-        for (i, display) in displays.enumerated() {
-            let intersection = windowRect.intersection(display.frame)
+        for (i, frame) in displayFrames.enumerated() {
+            let intersection = windowRect.intersection(frame)
             if !intersection.isNull {
                 let area = intersection.width * intersection.height
                 if area > bestArea {

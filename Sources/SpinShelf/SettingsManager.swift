@@ -74,6 +74,11 @@ final class SettingsManager: ObservableObject {
         didSet { save() }
     }
 
+    /// ディスプレイ巡回順序（CGDirectDisplayID の配列）。空ならX座標順（デフォルト）
+    @Published var displayOrder: [UInt32] = [] {
+        didSet { saveDisplayOrder() }
+    }
+
     @Published var launchAtLogin: Bool {
         didSet {
             UserDefaults.standard.set(launchAtLogin, forKey: "launchAtLogin")
@@ -108,6 +113,18 @@ final class SettingsManager: ObservableObject {
         }
 
         launchAtLogin = UserDefaults.standard.bool(forKey: "launchAtLogin")
+
+        if let data = UserDefaults.standard.data(forKey: "displayOrder"),
+            let order = try? JSONDecoder().decode([UInt32].self, from: data)
+        {
+            displayOrder = order
+        }
+    }
+
+    private func saveDisplayOrder() {
+        if let data = try? JSONEncoder().encode(displayOrder) {
+            UserDefaults.standard.set(data, forKey: "displayOrder")
+        }
     }
 
     private func save() {

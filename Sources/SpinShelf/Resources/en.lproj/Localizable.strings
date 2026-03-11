@@ -1,0 +1,30 @@
+/* Settings Window */
+"settings" = "Settings";
+"display_rotation_order" = "Display Rotation Order";
+"connect_two_or_more" = "Connect 2 or more displays to configure";
+"click_displays_in_order" = "Click displays in the order you want them to rotate:";
+"numbers_show_order" = "Numbers show rotation order. Click \"Set Order\" to change.";
+"cancel" = "Cancel";
+"done" = "Done";
+"selected_count" = "%d/%d selected";
+"identify" = "Identify";
+"set_order" = "Set Order";
+"reset" = "Reset";
+"rotation" = "Rotation:";
+"loop" = "(loop)";
+"excluded" = "Excluded:";
+"keyboard_shortcuts" = "Keyboard Shortcuts";
+"rotate_left" = "Rotate Left";
+"rotate_right" = "Rotate Right";
+"general" = "General";
+"launch_at_login" = "Launch at login";
+"check_for_updates" = "Check for Updates...";
+"type_shortcut" = "Type shortcut...";
+
+/* Menu */
+"settings_menu" = "Settings...";
+"about" = "About...";
+"quit" = "Quit";
+
+/* About */
+"about_text" = "Carousel-style window rotation across multiple displays.\n\nVersion 0.1.0";

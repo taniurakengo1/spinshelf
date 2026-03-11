@@ -1,0 +1,30 @@
+/* Settings Window */
+"settings" = "設定";
+"display_rotation_order" = "ディスプレイ巡回順序";
+"connect_two_or_more" = "2台以上のディスプレイを接続してください";
+"click_displays_in_order" = "巡回したい順番にディスプレイをクリック:";
+"numbers_show_order" = "番号は巡回順序です。「順序を設定」で変更できます。";
+"cancel" = "キャンセル";
+"done" = "完了";
+"selected_count" = "%d/%d 選択済み";
+"identify" = "識別";
+"set_order" = "順序を設定";
+"reset" = "リセット";
+"rotation" = "巡回:";
+"loop" = "(ループ)";
+"excluded" = "除外:";
+"keyboard_shortcuts" = "キーボードショートカット";
+"rotate_left" = "左に回転";
+"rotate_right" = "右に回転";
+"general" = "一般";
+"launch_at_login" = "ログイン時に起動";
+"check_for_updates" = "アップデートを確認...";
+"type_shortcut" = "ショートカットを入力...";
+
+/* Menu */
+"settings_menu" = "設定...";
+"about" = "SpinShelfについて...";
+"quit" = "終了";
+
+/* About */
+"about_text" = "複数ディスプレイ間でウィンドウをカルーセル式に巡回移動します。\n\nバージョン 0.1.0";

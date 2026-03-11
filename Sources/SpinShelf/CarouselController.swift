@@ -70,9 +70,16 @@ final class CarouselController {
 
         var tasks: [MoveTask] = []
         let displayCount = displays.count
-
+        let allDisplays = displayManager.allDisplays
         for window in windows {
-            guard let idx = windowManager.displayIndex(for: window, displays: displays) else {
+            // まず全ディスプレイで所属を判定
+            guard let allIdx = windowManager.displayIndex(for: window, displays: allDisplays)
+            else {
+                continue
+            }
+            // ローテーション対象外のディスプレイならスキップ
+            let physicalDisplayID = allDisplays[allIdx].id
+            guard let idx = displays.firstIndex(where: { $0.id == physicalDisplayID }) else {
                 continue
             }
             let targetIndex: Int

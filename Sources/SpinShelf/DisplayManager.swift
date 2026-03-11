@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import CoreGraphics
 
 /// ディスプレイ情報を管理し、左→右の順序で提供する
@@ -9,12 +10,26 @@ final class DisplayManager {
         let visibleFrame: CGRect // メニューバー/Dockを除いた領域
     }
 
+    /// ローテーション対象ディスプレイ（順序付き）
     private(set) var displays: [DisplayInfo] = []
+    /// 接続中の全ディスプレイ（除外含む）
+    private(set) var allDisplays: [DisplayInfo] = []
     private var changeObserver: NSObjectProtocol?
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         refreshDisplays()
         observeDisplayChanges()
+
+        // Settings UIでdisplayOrderが変更されたら再読み込み
+        SettingsManager.shared.$displayOrder
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                NSLog("[SpinShelf] Display order changed in settings")
+                self?.refreshDisplays()
+            }
+            .store(in: &cancellables)
     }
 
     deinit {
@@ -30,7 +45,7 @@ final class DisplayManager {
         CGGetActiveDisplayList(16, &displayIDs, &displayCount)
 
         let screens = NSScreen.screens
-        displays = (0..<Int(displayCount)).compactMap { i in
+        allDisplays = (0..<Int(displayCount)).compactMap { i in
             let id = displayIDs[i]
             let bounds = CGDisplayBounds(id)
 
@@ -59,13 +74,32 @@ final class DisplayManager {
         }
         .sorted { $0.frame.origin.x < $1.frame.origin.x }
 
-        NSLog("[SpinShelf] Detected %d display(s)", displays.count)
+        displays = Self.applyDisplayOrder(
+            allDisplays: allDisplays,
+            savedOrder: SettingsManager.shared.displayOrder
+        )
+
+        NSLog("[SpinShelf] Active rotation displays: %d", displays.count)
         for (i, d) in displays.enumerated() {
             NSLog(
                 "[SpinShelf]   Display %d: %.0fx%.0f at (%.0f, %.0f)",
                 i, d.frame.width, d.frame.height, d.frame.origin.x, d.frame.origin.y
             )
         }
+    }
+
+    // MARK: - Testable Logic
+
+    /// 保存された順序でディスプレイをフィルタ・並べ替えする（テスト可能なstaticメソッド）
+    static func applyDisplayOrder(
+        allDisplays: [DisplayInfo],
+        savedOrder: [UInt32]
+    ) -> [DisplayInfo] {
+        guard !savedOrder.isEmpty else { return allDisplays }
+        let ordered = savedOrder.compactMap { savedID in
+            allDisplays.first { $0.id == savedID }
+        }
+        return ordered.count >= 2 ? ordered : allDisplays
     }
 
     private func observeDisplayChanges() {

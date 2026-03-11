@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpinShelf - Carousel Window Manager for macOS</title>
+  <meta name="description" content="Rotate all your windows across multiple displays with a single shortcut. Free, open-source macOS menu bar app.">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #222;
+      --text: #e8e8e8;
+      --text-secondary: #888;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .hero-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero .tagline {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      border-color: #444;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    /* Demo */
+    .demo {
+      max-width: 720px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .demo-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+    .displays-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .display-box {
+      width: 160px;
+      height: 100px;
+      border-radius: 8px;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      position: relative;
+    }
+    .d1 { border-color: #3b82f6; background: rgba(59,130,246,0.1); color: #3b82f6; }
+    .d2 { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #22c55e; }
+    .d3 { border-color: #f97316; background: rgba(249,115,22,0.1); color: #f97316; }
+    .arrow-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    .arrow-row .arrow { font-size: 20px; }
+    .shortcut-badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Features */
+    .features {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .features h2 {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-card .icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Install */
+    .install {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .install h2 {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .install-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--accent);
+    }
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .code-block {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 13px;
+      margin-top: 8px;
+      overflow-x: auto;
+      color: var(--text);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    footer a { color: var(--text-secondary); }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 32px; }
+      .hero .tagline { font-size: 16px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .displays-row { flex-wrap: wrap; }
+      .display-box { width: 120px; height: 75px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-icon">🎠</div>
+  <h1>SpinShelf</h1>
+  <p class="tagline">Carousel-style window rotation across multiple displays. One shortcut to move everything.</p>
+  <div class="cta-group">
+    <a href="https://github.com/taniurakengo1/spinshelf/releases/latest" class="btn btn-primary">
+      ⬇ Download
+    </a>
+    <a href="https://github.com/taniurakengo1/spinshelf" class="btn btn-secondary">
+      GitHub
+    </a>
+  </div>
+</section>
+
+<section class="demo">
+  <div class="demo-visual">
+    <div class="displays-row">
+      <div class="display-box d1">Display 1</div>
+      <div class="display-box d2">Display 2</div>
+      <div class="display-box d3">Display 3</div>
+    </div>
+    <div class="arrow-row">
+      <span class="shortcut-badge">⌃⇧→</span>
+      <span class="arrow">→</span>
+      <span>All windows shift one display to the right</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon">⌨️</div>
+      <h3>Custom Shortcuts</h3>
+      <p>Set your own keyboard shortcuts for rotating left and right. Default: Ctrl+Shift+Arrow keys.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🖥️</div>
+      <h3>Flexible Display Order</h3>
+      <p>Choose which displays participate in rotation and in what order. Exclude displays you want untouched.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">✨</div>
+      <h3>Smooth Animations</h3>
+      <p>Foreground windows fade during cross-resolution moves. Background windows move instantly and invisibly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🪶</div>
+      <h3>Lightweight</h3>
+      <p>Menu bar app with zero CPU usage when idle. No Electron, no frameworks — pure Swift.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🌏</div>
+      <h3>English & Japanese</h3>
+      <p>Full localization for English and Japanese. Automatically matches your system language.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔓</div>
+      <h3>Open Source</h3>
+      <p>MIT licensed. Inspect the code, contribute, or fork it. No telemetry, no accounts.</p>
+    </div>
+  </div>
+</section>
+
+<section class="install">
+  <h2>Installation</h2>
+  <div class="install-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Clone & Build</h3>
+        <p>Requires macOS 13+ and Xcode Command Line Tools.</p>
+        <div class="code-block">
+git clone https://github.com/taniurakengo1/spinshelf.git<br>
+cd spinshelf<br>
+make install
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Grant Accessibility Permission</h3>
+        <p>SpinShelf needs Accessibility access to move windows. You'll be prompted on first launch.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Start Rotating</h3>
+        <p>Press <strong>Ctrl+Shift+→</strong> to rotate right, <strong>Ctrl+Shift+←</strong> to rotate left. Customize in Settings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Built by <a href="https://github.com/taniurakengo1">@taniurakengo1</a> ·
+    <a href="https://github.com/taniurakengo1/spinshelf">Source Code</a> ·
+    MIT License
+  </p>
+</footer>
+
+</body>
+</html>

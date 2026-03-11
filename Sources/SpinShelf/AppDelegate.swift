@@ -1,11 +1,12 @@
 import AppKit
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+public final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var carouselController: CarouselController?
     private let settingsWindowController = SettingsWindowController()
+    private let updateChecker = UpdateChecker()
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    public func applicationDidFinishLaunching(_ notification: Notification) {
         setupStatusItem()
 
         if PermissionManager.checkAccessibility(prompt: true) {
@@ -44,7 +45,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Rotate Left
         let leftItem = NSMenuItem(
-            title: "Rotate Left",
+            title: L10n.rotateLeft,
             action: #selector(rotateLeft),
             keyEquivalent: ""
         )
@@ -54,7 +55,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Rotate Right
         let rightItem = NSMenuItem(
-            title: "Rotate Right",
+            title: L10n.rotateRight,
             action: #selector(rotateRight),
             keyEquivalent: ""
         )
@@ -66,7 +67,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Settings
         let settingsItem = NSMenuItem(
-            title: "Settings...",
+            title: L10n.settingsMenu,
             action: #selector(showSettings),
             keyEquivalent: ","
         )
@@ -77,9 +78,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         menu.addItem(NSMenuItem.separator())
 
+        // Check for Updates
+        let updateItem = NSMenuItem(
+            title: L10n.checkForUpdates,
+            action: #selector(checkForUpdates),
+            keyEquivalent: ""
+        )
+        updateItem.image = NSImage(
+            systemSymbolName: "arrow.triangle.2.circlepath", accessibilityDescription: nil)
+        menu.addItem(updateItem)
+
         // About
         let aboutItem = NSMenuItem(
-            title: "About...",
+            title: L10n.about,
             action: #selector(showAbout),
             keyEquivalent: ""
         )
@@ -89,7 +100,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Quit
         let quitItem = NSMenuItem(
-            title: "Quit",
+            title: L10n.quit,
             action: #selector(quit),
             keyEquivalent: "q"
         )
@@ -147,11 +158,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         settingsWindowController.show()
     }
 
+    @objc private func checkForUpdates() {
+        updateChecker.check()
+    }
+
     @objc private func showAbout() {
         let alert = NSAlert()
         alert.messageText = "SpinShelf"
-        alert.informativeText =
-            "Carousel-style window rotation across multiple displays.\n\nVersion 0.1.0"
+        alert.informativeText = L10n.aboutText
         alert.alertStyle = .informational
         alert.runModal()
     }
