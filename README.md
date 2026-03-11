@@ -21,10 +21,18 @@ Unlike typical window managers that move individual windows, SpinShelf shifts **
 
 ## Installation
 
+### Homebrew
+
+```bash
+brew tap taniurakengo1/tap
+brew install spinshelf
+spinshelf
+```
+
 ### Build from source
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/spinshelf.git
+git clone https://github.com/taniurakengo1/spinshelf.git
 cd spinshelf
 swift build
 swift run
