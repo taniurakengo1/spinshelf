@@ -25,18 +25,18 @@ Unlike typical window managers that move individual windows, SpinShelf shifts **
 git clone https://github.com/taniurakengo1/spinshelf.git
 cd spinshelf
 sudo make install
+make start
 ```
 
-This builds a release binary and installs it to `/usr/local/bin/spinshelf`. Then run:
+This builds a release binary, installs it to `/usr/local/bin/spinshelf`, and registers it as a LaunchAgent. SpinShelf will:
+- Start immediately with `make start`
+- Auto-start on login (runs in the background, no terminal needed)
+
+Other commands:
 
 ```bash
-spinshelf
-```
-
-To uninstall:
-
-```bash
-make uninstall
+make stop        # Stop SpinShelf
+make uninstall   # Remove everything
 ```
 
 > **Note:** Xcode or Command Line Tools are required. Install with `xcode-select --install` if needed.
