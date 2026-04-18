@@ -1,0 +1,3975 @@
+{
+  "config": {
+    "configFile": "/Users/kengotaniura/github/oss/spinshelf/e2e/playwright.config.ts",
+    "rootDir": "/Users/kengotaniura/github/oss/spinshelf/e2e/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/kengotaniura/github/oss/spinshelf/e2e/evidence",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "spinshelf-e2e",
+        "name": "spinshelf-e2e",
+        "testDir": "/Users/kengotaniura/github/oss/spinshelf/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "reports/html",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "01-basic-functionality/P001-app-launch.spec.ts",
+      "file": "01-basic-functionality/P001-app-launch.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P001: アプリ起動確認 (@QAリーダー)",
+          "file": "01-basic-functionality/P001-app-launch.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アプリが正常に起動し、メニューバーアイコンが表示されること",
+              "ok": true,
+              "tags": [
+                "QAリーダー)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3ed1192ed4e22f2a0518-d62de35f7c1782ec222c",
+              "file": "01-basic-functionality/P001-app-launch.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P002-app-quit.spec.ts",
+      "file": "01-basic-functionality/P002-app-quit.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P002: アプリ終了確認 (@テスト自動化エンジニア)",
+          "file": "01-basic-functionality/P002-app-quit.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メニューから「終了」でアプリが正常終了すること",
+              "ok": true,
+              "tags": [
+                "テスト自動化エンジニア)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a35eb71dfbc1f90b6440-3e6a725ee5dd89c5dea2",
+              "file": "01-basic-functionality/P002-app-quit.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P003-menubar-icon.spec.ts",
+      "file": "01-basic-functionality/P003-menubar-icon.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P003: メニューバーアイコン (@UI/UXテスター)",
+          "file": "01-basic-functionality/P003-menubar-icon.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メニューバーアイコンクリックでメニューが表示されること",
+              "ok": true,
+              "tags": [
+                "UI/UXテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3acc0f41973c7609841b-6e8b20f4e971ca67ed65",
+              "file": "01-basic-functionality/P003-menubar-icon.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P004-rotate-right.spec.ts",
+      "file": "01-basic-functionality/P004-rotate-right.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P004: 右回転 (@機能テスター)",
+          "file": "01-basic-functionality/P004-rotate-right.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "デフォルトショートカット(Ctrl+Shift+→)で右回転が動作すること",
+              "ok": true,
+              "tags": [
+                "機能テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9ad13bd042e473df1da0-5aa2911a9161ccacc643",
+              "file": "01-basic-functionality/P004-rotate-right.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P005-rotate-left.spec.ts",
+      "file": "01-basic-functionality/P005-rotate-left.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P005: 左回転 (@回帰テスター)",
+          "file": "01-basic-functionality/P005-rotate-left.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "デフォルトショートカット(Ctrl+Shift+←)で左回転が動作すること",
+              "ok": true,
+              "tags": [
+                "回帰テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c6644aba2cfb2c9747b4-ef1698c8caa1009301d1",
+              "file": "01-basic-functionality/P005-rotate-left.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P006-carousel-cycle.spec.ts",
+      "file": "01-basic-functionality/P006-carousel-cycle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P006: カルーセル循環 (@境界値テスター)",
+          "file": "01-basic-functionality/P006-carousel-cycle.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "最後のディスプレイから最初のディスプレイに循環すること",
+              "ok": true,
+              "tags": [
+                "境界値テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ce13ad28ae0caf2b4d3c-b4bf41b83ebf5fdbe7cb",
+              "file": "01-basic-functionality/P006-carousel-cycle.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P007-single-display.spec.ts",
+      "file": "01-basic-functionality/P007-single-display.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P007: 単一ディスプレイ環境 (@環境テスター)",
+          "file": "01-basic-functionality/P007-single-display.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "単一ディスプレイ環境でエラーなく動作すること（回転はスキップ）",
+              "ok": true,
+              "tags": [
+                "環境テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "fa065e58aec5ca24fee4-a0e30e675f2be964ad77",
+              "file": "01-basic-functionality/P007-single-display.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P008-multiple-windows.spec.ts",
+      "file": "01-basic-functionality/P008-multiple-windows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P008: 複数ウィンドウ同時移動 (@結合テスター)",
+          "file": "01-basic-functionality/P008-multiple-windows.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "複数ウィンドウが同時に移動すること",
+              "ok": true,
+              "tags": [
+                "結合テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "66f109dba4fff9d1943f-65351cfd2be5378e73f8",
+              "file": "01-basic-functionality/P008-multiple-windows.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P009-window-order-preserved.spec.ts",
+      "file": "01-basic-functionality/P009-window-order-preserved.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P009: z-order保持 (@詳細テスター)",
+          "file": "01-basic-functionality/P009-window-order-preserved.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "回転後もz-order（前面/背面順）が保持されること",
+              "ok": true,
+              "tags": [
+                "詳細テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4821167aec60315b5491-19b0f01ae1ad4b74dc8f",
+              "file": "01-basic-functionality/P009-window-order-preserved.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "01-basic-functionality/P010-bidirectional-rotation.spec.ts",
+      "file": "01-basic-functionality/P010-bidirectional-rotation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P010: 双方向回転 (@探索テスター)",
+          "file": "01-basic-functionality/P010-bidirectional-rotation.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "右回転→左回転で元の位置に戻ること",
+              "ok": true,
+              "tags": [
+                "探索テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2ea3a33ec61412ef990c-ac9b8f6eb598d0b8ab04",
+              "file": "01-basic-functionality/P010-bidirectional-rotation.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P011-detect-displays.spec.ts",
+      "file": "02-multi-display/P011-detect-displays.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P011: ディスプレイ検出 (@ハードウェアテスター)",
+          "file": "02-multi-display/P011-detect-displays.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "接続中の全ディスプレイが検出されること",
+              "ok": true,
+              "tags": [
+                "ハードウェアテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9dc21409bd92b7300a61-912a8eb80bd661ca9373",
+              "file": "02-multi-display/P011-detect-displays.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P012-display-order.spec.ts",
+      "file": "02-multi-display/P012-display-order.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P012: ディスプレイ順序 (@構成テスター)",
+          "file": "02-multi-display/P012-display-order.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイがX座標順に並ぶこと",
+              "ok": true,
+              "tags": [
+                "構成テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "aff4312f5d0be23c6a33-e76e95ef0dd833025770",
+              "file": "02-multi-display/P012-display-order.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P013-custom-display-order.spec.ts",
+      "file": "02-multi-display/P013-custom-display-order.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P013: カスタム巡回順序 (@カスタマイズテスター)",
+          "file": "02-multi-display/P013-custom-display-order.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定でカスタム巡回順序が反映されること",
+              "ok": true,
+              "tags": [
+                "カスタマイズテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d1c6c0c404a05f535d30-78d2b7211cd6d5674d73",
+              "file": "02-multi-display/P013-custom-display-order.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P014-display-hotplug.spec.ts",
+      "file": "02-multi-display/P014-display-hotplug.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P014: ディスプレイホットプラグ (@接続テスター)",
+          "file": "02-multi-display/P014-display-hotplug.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイの接続/取り外しに動的対応すること",
+              "ok": true,
+              "tags": [
+                "接続テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "7b5539ac08d2212856f5-0edbef8bb3b03fe7ff56",
+              "file": "02-multi-display/P014-display-hotplug.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P015-resolution-adaptation.spec.ts",
+      "file": "02-multi-display/P015-resolution-adaptation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P015: 解像度適応 (@解像度テスター)",
+          "file": "02-multi-display/P015-resolution-adaptation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "異なる解像度間の移動でウィンドウがリサイズされること",
+              "ok": true,
+              "tags": [
+                "解像度テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4ce9b0513e437d2dcc45-d25320f7ad82bd84ed3b",
+              "file": "02-multi-display/P015-resolution-adaptation.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P016-aspect-ratio.spec.ts",
+      "file": "02-multi-display/P016-aspect-ratio.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P016: アスペクト比対応 (@アスペクト比テスター)",
+          "file": "02-multi-display/P016-aspect-ratio.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "異なるアスペクト比のディスプレイ間で適切にフィットすること",
+              "ok": true,
+              "tags": [
+                "アスペクト比テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6ae0787d9eb158f3142f-32e8001fb38389f0353d",
+              "file": "02-multi-display/P016-aspect-ratio.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P017-three-displays.spec.ts",
+      "file": "02-multi-display/P017-three-displays.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P017: 3画面巡回 (@マルチモニターテスター)",
+          "file": "02-multi-display/P017-three-displays.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "3画面構成でA→B→C→Aの巡回が正しいこと",
+              "ok": true,
+              "tags": [
+                "マルチモニターテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f9cb6116316466dc8447-18fb7caf5051482174a3",
+              "file": "02-multi-display/P017-three-displays.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P018-display-arrangement.spec.ts",
+      "file": "02-multi-display/P018-display-arrangement.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P018: ディスプレイ配置 (@レイアウトテスター)",
+          "file": "02-multi-display/P018-display-arrangement.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "縦並び/横並びなど様々な配置に対応すること",
+              "ok": true,
+              "tags": [
+                "レイアウトテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d910ac28b20bfa598059-c6306fad943fad6a576c",
+              "file": "02-multi-display/P018-display-arrangement.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P019-main-display.spec.ts",
+      "file": "02-multi-display/P019-main-display.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P019: メインディスプレイ扱い (@メインディスプレイテスター)",
+          "file": "02-multi-display/P019-main-display.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メインディスプレイの特別扱いが不要であること",
+              "ok": true,
+              "tags": [
+                "メインディスプレイテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "217937e754707ca42250-23af3d8ffdc390b402d2",
+              "file": "02-multi-display/P019-main-display.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-multi-display/P020-display-exclude.spec.ts",
+      "file": "02-multi-display/P020-display-exclude.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P020: ディスプレイ除外 (@除外テスター)",
+          "file": "02-multi-display/P020-display-exclude.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "カスタム順序で特定ディスプレイを除外できること",
+              "ok": true,
+              "tags": [
+                "除外テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "db831f0e61657ff3dacb-5d82834722415abc0b88",
+              "file": "02-multi-display/P020-display-exclude.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P021-window-position.spec.ts",
+      "file": "03-window-management/P021-window-position.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P021: ウィンドウ位置 (@位置テスター)",
+          "file": "03-window-management/P021-window-position.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "移動後のウィンドウ位置が相対的に正しいこと",
+              "ok": true,
+              "tags": [
+                "位置テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "51966a58cc0497aac34d-e7deeac32bbf7eb96658",
+              "file": "03-window-management/P021-window-position.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P022-window-resize.spec.ts",
+      "file": "03-window-management/P022-window-resize.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P022: ウィンドウリサイズ (@リサイズテスター)",
+          "file": "03-window-management/P022-window-resize.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ターゲットディスプレイに合わせてリサイズされること",
+              "ok": true,
+              "tags": [
+                "リサイズテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3671e2057eca96f0265d-7edefcb0164d1876d59f",
+              "file": "03-window-management/P022-window-resize.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P023-window-boundary.spec.ts",
+      "file": "03-window-management/P023-window-boundary.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P023: ウィンドウ境界 (@境界テスター)",
+          "file": "03-window-management/P023-window-boundary.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ウィンドウがディスプレイ境界からはみ出さないこと",
+              "ok": true,
+              "tags": [
+                "境界テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "1345ba5280e7da5d81ab-d59a40ba18e97fd1001d",
+              "file": "03-window-management/P023-window-boundary.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P024-minimized-skip.spec.ts",
+      "file": "03-window-management/P024-minimized-skip.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P024: 最小化ウィンドウスキップ (@状態テスター)",
+          "file": "03-window-management/P024-minimized-skip.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "最小化ウィンドウがスキップされること",
+              "ok": true,
+              "tags": [
+                "状態テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "df2225380f237c4a7a85-4aafd330bbdcbc7bdcf1",
+              "file": "03-window-management/P024-minimized-skip.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P025-fullscreen-skip.spec.ts",
+      "file": "03-window-management/P025-fullscreen-skip.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P025: フルスクリーンウィンドウスキップ (@フルスクリーンテスター)",
+          "file": "03-window-management/P025-fullscreen-skip.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "フルスクリーンウィンドウがスキップされること",
+              "ok": true,
+              "tags": [
+                "フルスクリーンテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "5189285294468a3cff2e-afda76b1338bdc8cbca7",
+              "file": "03-window-management/P025-fullscreen-skip.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P026-multi-app-windows.spec.ts",
+      "file": "03-window-management/P026-multi-app-windows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P026: 複数アプリ横断移動 (@アプリ横断テスター)",
+          "file": "03-window-management/P026-multi-app-windows.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "複数アプリのウィンドウが同時に移動すること",
+              "ok": true,
+              "tags": [
+                "アプリ横断テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "19995d010fde9c02b736-8d74b882dcf7c215c68f",
+              "file": "03-window-management/P026-multi-app-windows.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P027-large-window.spec.ts",
+      "file": "03-window-management/P027-large-window.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P027: 大きいウィンドウのクリップ (@サイズテスター)",
+          "file": "03-window-management/P027-large-window.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイより大きいウィンドウが適切にクリップされること",
+              "ok": true,
+              "tags": [
+                "サイズテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f6fd68d29dda176293d3-d11fe6976eac6f3b187d",
+              "file": "03-window-management/P027-large-window.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P028-small-window.spec.ts",
+      "file": "03-window-management/P028-small-window.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P028: 小さいウィンドウ移動 (@最小ウィンドウテスター)",
+          "file": "03-window-management/P028-small-window.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "非常に小さいウィンドウも正しく移動すること",
+              "ok": true,
+              "tags": [
+                "最小ウィンドウテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "7cc9a3083cb5da118f7b-21fa5c2cf9b9823ccbb2",
+              "file": "03-window-management/P028-small-window.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P029-window-title.spec.ts",
+      "file": "03-window-management/P029-window-title.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P029: ウィンドウタイトル保持 (@メタデータテスター)",
+          "file": "03-window-management/P029-window-title.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "移動後もウィンドウタイトルが保持されること",
+              "ok": true,
+              "tags": [
+                "メタデータテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c4b0a0192e4e52bd5390-98fca1a9bf634c30e677",
+              "file": "03-window-management/P029-window-title.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-window-management/P030-fade-animation.spec.ts",
+      "file": "03-window-management/P030-fade-animation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P030: フェードアニメーション (@アニメーションテスター)",
+          "file": "03-window-management/P030-fade-animation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "前面ウィンドウのフェードアニメーションが動作すること",
+              "ok": true,
+              "tags": [
+                "アニメーションテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a76efc7137ac60666f78-34da5ce7a3c22eaf5d27",
+              "file": "03-window-management/P030-fade-animation.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P031-keyboard-shortcut-default.spec.ts",
+      "file": "04-input-gesture/P031-keyboard-shortcut-default.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P031: デフォルトキーボードショートカット (@入力テスター)",
+          "file": "04-input-gesture/P031-keyboard-shortcut-default.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "デフォルトのCtrl+Shift+矢印キーショートカットが動作すること",
+              "ok": true,
+              "tags": [
+                "入力テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3b9d83b6feeb026c7c97-874564921fb6b26335de",
+              "file": "04-input-gesture/P031-keyboard-shortcut-default.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P032-custom-shortcut.spec.ts",
+      "file": "04-input-gesture/P032-custom-shortcut.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P032: カスタムショートカット (@ショートカットテスター)",
+          "file": "04-input-gesture/P032-custom-shortcut.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "カスタムショートカットが正しく設定・動作すること",
+              "ok": true,
+              "tags": [
+                "ショートカットテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c20682cd20fea2aeda3b-ab7fc26b05ceac82f2d5",
+              "file": "04-input-gesture/P032-custom-shortcut.spec.ts",
+              "line": 13,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P033-modifier-key-only.spec.ts",
+      "file": "04-input-gesture/P033-modifier-key-only.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P033: 修飾キーのみ押下 (@修飾キーテスター)",
+          "file": "04-input-gesture/P033-modifier-key-only.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "修飾キーだけ押しても反応しないこと",
+              "ok": true,
+              "tags": [
+                "修飾キーテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "548ddffa347a4a24a521-e387b0c4b268ad0e2caa",
+              "file": "04-input-gesture/P033-modifier-key-only.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P034-wrong-modifier.spec.ts",
+      "file": "04-input-gesture/P034-wrong-modifier.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P034: 間違った修飾キー (@誤操作テスター)",
+          "file": "04-input-gesture/P034-wrong-modifier.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "間違った修飾キーの組み合わせでは発火しないこと",
+              "ok": true,
+              "tags": [
+                "誤操作テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "67e1857df367ba6e5164-a04b30e8a4febc76e16d",
+              "file": "04-input-gesture/P034-wrong-modifier.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P035-scroll-gesture.spec.ts",
+      "file": "04-input-gesture/P035-scroll-gesture.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P035: スクロールジェスチャー (@ジェスチャーテスター)",
+          "file": "04-input-gesture/P035-scroll-gesture.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "修飾キー+横スクロールで回転が動作すること",
+              "ok": true,
+              "tags": [
+                "ジェスチャーテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3dd157fa90ed12753d64-d4cbd40ea7cfcb119b65",
+              "file": "04-input-gesture/P035-scroll-gesture.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P036-scroll-cooldown.spec.ts",
+      "file": "04-input-gesture/P036-scroll-cooldown.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P036: スクロールクールダウン (@タイミングテスター)",
+          "file": "04-input-gesture/P036-scroll-cooldown.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "スクロールクールダウン(0.5秒)が機能すること",
+              "ok": true,
+              "tags": [
+                "タイミングテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c41369fb9faa540d0155-eacdb0d0f5a9e50b1360",
+              "file": "04-input-gesture/P036-scroll-cooldown.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P037-vertical-scroll-ignore.spec.ts",
+      "file": "04-input-gesture/P037-vertical-scroll-ignore.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P037: 縦スクロール無視 (@方向テスター)",
+          "file": "04-input-gesture/P037-vertical-scroll-ignore.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "縦スクロールでは発火しないこと",
+              "ok": true,
+              "tags": [
+                "方向テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ea1f596b3df065488667-f213741ec9068e5bd64b",
+              "file": "04-input-gesture/P037-vertical-scroll-ignore.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P038-rapid-input.spec.ts",
+      "file": "04-input-gesture/P038-rapid-input.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P038: 高速連続入力 (@連打テスター)",
+          "file": "04-input-gesture/P038-rapid-input.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "高速連続入力で再入防止が機能すること",
+              "ok": true,
+              "tags": [
+                "連打テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4834f3636009b8776f11-ac735fcc88044ee871a7",
+              "file": "04-input-gesture/P038-rapid-input.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P039-simultaneous-keys.spec.ts",
+      "file": "04-input-gesture/P039-simultaneous-keys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P039: 同時キー押下 (@同時押しテスター)",
+          "file": "04-input-gesture/P039-simultaneous-keys.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "他のキーと同時に押しても干渉しないこと",
+              "ok": true,
+              "tags": [
+                "同時押しテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "1bfef4bbf067f480b71d-34ba21d1cb5e87565848",
+              "file": "04-input-gesture/P039-simultaneous-keys.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-input-gesture/P040-event-tap-recovery.spec.ts",
+      "file": "04-input-gesture/P040-event-tap-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P040: CGEventTap回復 (@イベントタップテスター)",
+          "file": "04-input-gesture/P040-event-tap-recovery.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "CGEventTapが無効化された場合の回復",
+              "ok": true,
+              "tags": [
+                "イベントタップテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "31283b7ffec7677be95c-c21a9b71536cad714a25",
+              "file": "04-input-gesture/P040-event-tap-recovery.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P041-settings-window-open.spec.ts",
+      "file": "05-settings-config/P041-settings-window-open.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P041: 設定ウィンドウ表示 (@設定画面テスター)",
+          "file": "05-settings-config/P041-settings-window-open.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定ウィンドウが開くこと",
+              "ok": true,
+              "tags": [
+                "設定画面テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f230b6dde8d42230bb10-6cd2cd84e5516c2da6f8",
+              "file": "05-settings-config/P041-settings-window-open.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P042-shortcut-change.spec.ts",
+      "file": "05-settings-config/P042-shortcut-change.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P042: ショートカット変更 (@キー変更テスター)",
+          "file": "05-settings-config/P042-shortcut-change.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ショートカットの変更が保存されること",
+              "ok": true,
+              "tags": [
+                "キー変更テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "72b3a18c317e1b32c3a5-95b61e33129fd84da4b3",
+              "file": "05-settings-config/P042-shortcut-change.spec.ts",
+              "line": 11,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P043-shortcut-display.spec.ts",
+      "file": "05-settings-config/P043-shortcut-display.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P043: ショートカット表示 (@表示テスター)",
+          "file": "05-settings-config/P043-shortcut-display.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ショートカットが記号で正しく表示されること",
+              "ok": true,
+              "tags": [
+                "表示テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d8277e07e6703d589811-981458783e3f020cf2f4",
+              "file": "05-settings-config/P043-shortcut-display.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P044-display-order-ui.spec.ts",
+      "file": "05-settings-config/P044-display-order-ui.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P044: ディスプレイ順序変更 (@順序設定テスター)",
+          "file": "05-settings-config/P044-display-order-ui.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイ順序をUIで変更できること",
+              "ok": true,
+              "tags": [
+                "順序設定テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "084f2c6a15f155a651aa-152573421e7e4a535fac",
+              "file": "05-settings-config/P044-display-order-ui.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P045-display-identify.spec.ts",
+      "file": "05-settings-config/P045-display-identify.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P045: ディスプレイ識別 (@識別テスター)",
+          "file": "05-settings-config/P045-display-identify.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイ識別機能が各画面に番号を表示すること",
+              "ok": true,
+              "tags": [
+                "識別テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "20641ce22a2f30f93f5a-c73f375997fba7efc984",
+              "file": "05-settings-config/P045-display-identify.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P046-launch-at-login.spec.ts",
+      "file": "05-settings-config/P046-launch-at-login.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P046: ログイン時起動設定 (@起動設定テスター)",
+          "file": "05-settings-config/P046-launch-at-login.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ログイン時起動の設定が保存されること",
+              "ok": true,
+              "tags": [
+                "起動設定テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b8b350a056dfe43a4ffd-882f9ecec492c62396a2",
+              "file": "05-settings-config/P046-launch-at-login.spec.ts",
+              "line": 11,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P047-settings-persist.spec.ts",
+      "file": "05-settings-config/P047-settings-persist.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P047: 設定永続化 (@永続化テスター)",
+          "file": "05-settings-config/P047-settings-persist.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アプリ再起動後も設定が保持されること",
+              "ok": true,
+              "tags": [
+                "永続化テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d3b7ec4bb955e5e667bd-5a2e17f4e6feafb4f51c",
+              "file": "05-settings-config/P047-settings-persist.spec.ts",
+              "line": 18,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P048-settings-reset.spec.ts",
+      "file": "05-settings-config/P048-settings-reset.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P048: ディスプレイ順序リセット (@リセットテスター)",
+          "file": "05-settings-config/P048-settings-reset.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイ順序リセットがデフォルト(X座標順)に戻ること",
+              "ok": true,
+              "tags": [
+                "リセットテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "79d66bad0e5a77f87244-31f6e6db8e8336d5463b",
+              "file": "05-settings-config/P048-settings-reset.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P049-check-updates.spec.ts",
+      "file": "05-settings-config/P049-check-updates.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P049: アップデート確認 (@アップデートテスター)",
+          "file": "05-settings-config/P049-check-updates.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アップデート確認機能が動作すること",
+              "ok": true,
+              "tags": [
+                "アップデートテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "57382767dfb37e6053aa-ca8dc8f4c203d7ea3b71",
+              "file": "05-settings-config/P049-check-updates.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-settings-config/P050-settings-concurrent.spec.ts",
+      "file": "05-settings-config/P050-settings-concurrent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P050: 設定変更中のショートカット (@並行テスター)",
+          "file": "05-settings-config/P050-settings-concurrent.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定変更中にショートカットが正しく動作すること",
+              "ok": true,
+              "tags": [
+                "並行テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e615deea47e19e943407-a77948007eb1f3ab011d",
+              "file": "05-settings-config/P050-settings-concurrent.spec.ts",
+              "line": 14,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P051-rotation-speed.spec.ts",
+      "file": "06-performance-stress/P051-rotation-speed.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P051: 回転速度 (@パフォーマンステスター)",
+          "file": "06-performance-stress/P051-rotation-speed.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "回転操作が1秒以内に完了すること",
+              "ok": true,
+              "tags": [
+                "パフォーマンステスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "822cbee614d03b165f5e-113a5ee00383e24b1764",
+              "file": "06-performance-stress/P051-rotation-speed.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P052-many-windows.spec.ts",
+      "file": "06-performance-stress/P052-many-windows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P052: 多数ウィンドウ (@負荷テスター)",
+          "file": "06-performance-stress/P052-many-windows.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "20個以上のウィンドウでも正常動作すること",
+              "ok": true,
+              "tags": [
+                "負荷テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "746c54cd0fbf11788206-16c3529f75dddb451f69",
+              "file": "06-performance-stress/P052-many-windows.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P053-memory-usage.spec.ts",
+      "file": "06-performance-stress/P053-memory-usage.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P053: メモリ使用量 (@メモリテスター)",
+          "file": "06-performance-stress/P053-memory-usage.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "長時間使用でメモリリークがないこと",
+              "ok": true,
+              "tags": [
+                "メモリテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2bf9e7e7723fd4c24857-4bd85de86a14f15c614b",
+              "file": "06-performance-stress/P053-memory-usage.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P054-cpu-idle.spec.ts",
+      "file": "06-performance-stress/P054-cpu-idle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P054: アイドル時CPU使用率 (@CPUテスター)",
+          "file": "06-performance-stress/P054-cpu-idle.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アイドル時のCPU使用率が低いこと(1%以下)",
+              "ok": true,
+              "tags": [
+                "CPUテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9444af5a6bed036db679-bc3e376c30d59453bc03",
+              "file": "06-performance-stress/P054-cpu-idle.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P055-rapid-rotation.spec.ts",
+      "file": "06-performance-stress/P055-rapid-rotation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P055: 連続回転ストレス (@ストレステスター)",
+          "file": "06-performance-stress/P055-rapid-rotation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "50回連続回転でクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "ストレステスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "49b2f620e31d8c421e64-91d244017f0ffb026190",
+              "file": "06-performance-stress/P055-rapid-rotation.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P056-large-resolution.spec.ts",
+      "file": "06-performance-stress/P056-large-resolution.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P056: 高解像度ディスプレイ (@高解像度テスター)",
+          "file": "06-performance-stress/P056-large-resolution.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "5K/6K解像度ディスプレイでも正常動作すること",
+              "ok": true,
+              "tags": [
+                "高解像度テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6c83a667e7de5c6bd345-dcc0f583745c8bf2a463",
+              "file": "06-performance-stress/P056-large-resolution.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P057-window-count-scaling.spec.ts",
+      "file": "06-performance-stress/P057-window-count-scaling.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P057: ウィンドウ数スケーリング (@スケーリングテスター)",
+          "file": "06-performance-stress/P057-window-count-scaling.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ウィンドウ数増加に対する性能劣化が線形以下であること",
+              "ok": true,
+              "tags": [
+                "スケーリングテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "74e7ebb466548368ef56-24ee5ecf9b8f9d7e2e95",
+              "file": "06-performance-stress/P057-window-count-scaling.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06-performance-stress/P058-concurrent-operations.spec.ts",
+      "file": "06-performance-stress/P058-concurrent-operations.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P058: 並行操作 (@並行操作テスター)",
+          "file": "06-performance-stress/P058-concurrent-operations.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "回転中に別のアプリ操作をしても問題ないこと",
+              "ok": true,
+              "tags": [
+                "並行操作テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c0b216197b7b7635e763-a1bb7c9cda87156f681d",
+              "file": "06-performance-stress/P058-concurrent-operations.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P059-no-windows.spec.ts",
+      "file": "07-error-edge-cases/P059-no-windows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P059: ウィンドウが0個の状態で回転してもクラッシュしないこと (@ゼロ状態テスター)",
+          "file": "07-error-edge-cases/P059-no-windows.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ウィンドウが0個の状態で回転操作を行ってもアプリがクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "ゼロ状態テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9e1d9c8c8971f9919fd0-2367579c5a80b671277c",
+              "file": "07-error-edge-cases/P059-no-windows.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P060-window-close-during-rotation.spec.ts",
+      "file": "07-error-edge-cases/P060-window-close-during-rotation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P060: 回転中にウィンドウを閉じてもクラッシュしないこと (@レースコンディションテスター)",
+          "file": "07-error-edge-cases/P060-window-close-during-rotation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "回転操作と同時にウィンドウを閉じてもアプリがクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "レースコンディションテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "374a1e7f91332023ec8f-0d47a623dcdfd55c9f44",
+              "file": "07-error-edge-cases/P060-window-close-during-rotation.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P061-app-crash-recovery.spec.ts",
+      "file": "07-error-edge-cases/P061-app-crash-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P061: アプリがクラッシュ後に再起動できること (@クラッシュテスター)",
+          "file": "07-error-edge-cases/P061-app-crash-recovery.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アプリを強制終了した後に再起動できること",
+              "ok": true,
+              "tags": [
+                "クラッシュテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d9a640947d88e2ec5801-12be94f8c84b46762fd2",
+              "file": "07-error-edge-cases/P061-app-crash-recovery.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P062-display-disconnect-during-rotation.spec.ts",
+      "file": "07-error-edge-cases/P062-display-disconnect-during-rotation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P062: 回転中にディスプレイが切断されても安全に処理されること (@切断テスター)",
+          "file": "07-error-edge-cases/P062-display-disconnect-during-rotation.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイ構成変更時にアプリがクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "切断テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f43738dee63e656fa188-c86a8c226905908ae959",
+              "file": "07-error-edge-cases/P062-display-disconnect-during-rotation.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P063-zero-size-window.spec.ts",
+      "file": "07-error-edge-cases/P063-zero-size-window.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P063: サイズ0のウィンドウが適切にスキップされること (@ゼロサイズテスター)",
+          "file": "07-error-edge-cases/P063-zero-size-window.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "極小サイズのウィンドウがあっても回転がクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "ゼロサイズテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "5a319600f205de2dc291-6dbf9333477fd1a1bae4",
+              "file": "07-error-edge-cases/P063-zero-size-window.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P064-screen-saver.spec.ts",
+      "file": "07-error-edge-cases/P064-screen-saver.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P064: スクリーンセーバー中のショートカット動作 (@スクリーンセーバーテスター)",
+          "file": "07-error-edge-cases/P064-screen-saver.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "スクリーンセーバー起動後にショートカットが正常に機能すること",
+              "ok": true,
+              "tags": [
+                "スクリーンセーバーテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "174bfe7a87db38beab64-6a0ace534aca55a0e030",
+              "file": "07-error-edge-cases/P064-screen-saver.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P065-sleep-wake.spec.ts",
+      "file": "07-error-edge-cases/P065-sleep-wake.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P065: スリープ→復帰後にショートカットが機能すること (@スリープテスター)",
+          "file": "07-error-edge-cases/P065-sleep-wake.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "スリープ復帰をシミュレートした後にショートカットが正常に機能すること",
+              "ok": true,
+              "tags": [
+                "スリープテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b73a025adc16480a8346-04199ed9cc66cf1408aa",
+              "file": "07-error-edge-cases/P065-sleep-wake.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P066-mission-control.spec.ts",
+      "file": "07-error-edge-cases/P066-mission-control.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P066: Mission Control中の動作確認 (@Mission Controlテスター)",
+          "file": "07-error-edge-cases/P066-mission-control.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Mission Control表示中にショートカットを押してもクラッシュしないこと",
+              "ok": true,
+              "tags": [
+                "Mission"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "53c0d06564258333d213-40c43a8b875632f9e541",
+              "file": "07-error-edge-cases/P066-mission-control.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P067-spaces-interaction.spec.ts",
+      "file": "07-error-edge-cases/P067-spaces-interaction.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P067: 仮想デスクトップ(Spaces)との干渉がないこと (@Spacesテスター)",
+          "file": "07-error-edge-cases/P067-spaces-interaction.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Spaces切替後に回転操作が正常に動作し干渉しないこと",
+              "ok": true,
+              "tags": [
+                "Spacesテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9476f8efd28dfba6eb60-218e640142f9fca57751",
+              "file": "07-error-edge-cases/P067-spaces-interaction.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07-error-edge-cases/P068-dock-menubar-change.spec.ts",
+      "file": "07-error-edge-cases/P068-dock-menubar-change.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P068: Dock位置変更/メニューバー非表示での動作 (@Dock/メニューバーテスター)",
+          "file": "07-error-edge-cases/P068-dock-menubar-change.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Dock位置変更やメニューバー設定変更後も回転が正常に動作すること",
+              "ok": true,
+              "tags": [
+                "Dock/メニューバーテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "09383262cc2d5112a7b1-df91fae04c64d9c77570",
+              "file": "07-error-edge-cases/P068-dock-menubar-change.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P069-menubar-icon-visibility.spec.ts",
+      "file": "08-ui-ux/P069-menubar-icon-visibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P069: メニューバーアイコンがダーク/ライトモードで見えること (@視認性テスター)",
+          "file": "08-ui-ux/P069-menubar-icon-visibility.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ダークモードとライトモードの両方でメニューバーアイコンが表示されること",
+              "ok": true,
+              "tags": [
+                "視認性テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "5c3288b74a914080fb15-aafbab1761a92c2aa372",
+              "file": "08-ui-ux/P069-menubar-icon-visibility.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P070-settings-layout.spec.ts",
+      "file": "08-ui-ux/P070-settings-layout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P070: 設定ウィンドウのレイアウトが正しいこと (@レイアウトテスター)",
+          "file": "08-ui-ux/P070-settings-layout.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定ウィンドウが適切なサイズとレイアウトで表示されること",
+              "ok": true,
+              "tags": [
+                "レイアウトテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c8832aa2ffa2a74d14f6-d14bfcfb7fd3c15c1fa5",
+              "file": "08-ui-ux/P070-settings-layout.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P071-about-dialog.spec.ts",
+      "file": "08-ui-ux/P071-about-dialog.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P071: Aboutダイアログの内容が正しいこと (@Aboutテスター)",
+          "file": "08-ui-ux/P071-about-dialog.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Aboutダイアログにアプリ名とバージョンが表示されること",
+              "ok": true,
+              "tags": [
+                "Aboutテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "dc4c7bfcd1a2243e1695-5757c2e0554521828e79",
+              "file": "08-ui-ux/P071-about-dialog.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P072-menu-items.spec.ts",
+      "file": "08-ui-ux/P072-menu-items.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P072: メニュー項目が全て正しく表示されること (@メニューテスター)",
+          "file": "08-ui-ux/P072-menu-items.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メニューバーアイコンのメニューに必要な項目が全て含まれていること",
+              "ok": true,
+              "tags": [
+                "メニューテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd066e3493026dd99532-990407ed624ac42983cf",
+              "file": "08-ui-ux/P072-menu-items.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P073-rotate-from-menu.spec.ts",
+      "file": "08-ui-ux/P073-rotate-from-menu.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P073: メニューからの回転操作が動作すること (@メニュー操作テスター)",
+          "file": "08-ui-ux/P073-rotate-from-menu.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メニュー項目から回転を実行できること",
+              "ok": true,
+              "tags": [
+                "メニュー操作テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a55f6200eed078f1189b-4d4f075c7e57694b53f8",
+              "file": "08-ui-ux/P073-rotate-from-menu.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P074-visual-feedback.spec.ts",
+      "file": "08-ui-ux/P074-visual-feedback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P074: 回転時の視覚的フィードバック（フェード）が適切であること (@フィードバックテスター)",
+          "file": "08-ui-ux/P074-visual-feedback.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "回転時に視覚的フィードバックが表示されアプリが正常に動作すること",
+              "ok": true,
+              "tags": [
+                "フィードバックテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f67fec33ee0702da8049-31c86c9c377e472d3db8",
+              "file": "08-ui-ux/P074-visual-feedback.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P075-settings-accessibility.spec.ts",
+      "file": "08-ui-ux/P075-settings-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P075: 設定画面がキーボードナビゲーション可能であること (@アクセシビリティテスター)",
+          "file": "08-ui-ux/P075-settings-accessibility.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定画面の要素がTabキーでフォーカス遷移できること",
+              "ok": true,
+              "tags": [
+                "アクセシビリティテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "15f13ef166c54e833e06-87b0db42d2302f2dc9bf",
+              "file": "08-ui-ux/P075-settings-accessibility.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08-ui-ux/P076-display-preview.spec.ts",
+      "file": "08-ui-ux/P076-display-preview.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P076: ディスプレイ順序設定のプレビュー表示が正しいこと (@プレビューテスター)",
+          "file": "08-ui-ux/P076-display-preview.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定画面のディスプレイプレビューが接続ディスプレイ数と一致すること",
+              "ok": true,
+              "tags": [
+                "プレビューテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a1aff09b8d1be6136e4a-96f12b3e12546b46fbe8",
+              "file": "08-ui-ux/P076-display-preview.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09-localization/P077-english-locale.spec.ts",
+      "file": "09-localization/P077-english-locale.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P077: 英語ロケールで全UIテキストが正しいこと (@英語テスター)",
+          "file": "09-localization/P077-english-locale.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "英語環境でメニュー項目が英語で表示されること",
+              "ok": true,
+              "tags": [
+                "英語テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "507e9860172ba163e725-4f5646875d6805856623",
+              "file": "09-localization/P077-english-locale.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09-localization/P078-japanese-locale.spec.ts",
+      "file": "09-localization/P078-japanese-locale.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P078: 日本語ロケールで全UIテキストが正しいこと (@日本語テスター)",
+          "file": "09-localization/P078-japanese-locale.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "日本語環境でメニュー項目が日本語で表示されること",
+              "ok": true,
+              "tags": [
+                "日本語テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6abac080389565fde8f5-3f9eb90d4266005c78d0",
+              "file": "09-localization/P078-japanese-locale.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09-localization/P079-locale-switch.spec.ts",
+      "file": "09-localization/P079-locale-switch.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P079: ロケール切替後にUI言語が変わること (@ロケール切替テスター)",
+          "file": "09-localization/P079-locale-switch.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "システムロケールを切り替えた場合にアプリが正常に動作すること",
+              "ok": true,
+              "tags": [
+                "ロケール切替テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "41ffec174b317a59cfcb-c657e2c0e33ef3ec5473",
+              "file": "09-localization/P079-locale-switch.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09-localization/P080-long-text-layout.spec.ts",
+      "file": "09-localization/P080-long-text-layout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P080: 長いローカライズテキストでレイアウトが崩れないこと (@テキスト長テスター)",
+          "file": "09-localization/P080-long-text-layout.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "設定ウィンドウが適切なサイズで表示され切れないこと",
+              "ok": true,
+              "tags": [
+                "テキスト長テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c9893f36ba37e60f7ec7-624f04cde5a025e34c1a",
+              "file": "09-localization/P080-long-text-layout.spec.ts",
+              "line": 5,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09-localization/P081-missing-key-fallback.spec.ts",
+      "file": "09-localization/P081-missing-key-fallback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P081: 未翻訳キーがフォールバック表示されること (@フォールバックテスター)",
+          "file": "09-localization/P081-missing-key-fallback.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "メニュー項目に空文字や未翻訳キーが表示されないこと",
+              "ok": true,
+              "tags": [
+                "フォールバックテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c99c04235a7f6d0fef98-5f28938b02026df94e52",
+              "file": "09-localization/P081-missing-key-fallback.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10-security-permissions/P082-accessibility-permission.spec.ts",
+      "file": "10-security-permissions/P082-accessibility-permission.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P082: アクセシビリティ権限が要求されること (@権限テスター)",
+          "file": "10-security-permissions/P082-accessibility-permission.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アプリがアクセシビリティ権限を必要とし、権限が設定されていること",
+              "ok": true,
+              "tags": [
+                "権限テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ddc12f9fc8a07b579afa-de667d1ec7caf5a1c83a",
+              "file": "10-security-permissions/P082-accessibility-permission.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10-security-permissions/P083-permission-denied.spec.ts",
+      "file": "10-security-permissions/P083-permission-denied.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P083: 権限なしでは適切にエラー表示されること (@拒否テスター)",
+          "file": "10-security-permissions/P083-permission-denied.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "権限が必要な操作時にエラーハンドリングが適切に行われること",
+              "ok": true,
+              "tags": [
+                "拒否テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "0a5e44d69901ba152f0c-a957222d111587fa7764",
+              "file": "10-security-permissions/P083-permission-denied.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10-security-permissions/P084-permission-polling.spec.ts",
+      "file": "10-security-permissions/P084-permission-polling.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P084: 権限付与待ちのポーリングが動作すること (@ポーリングテスター)",
+          "file": "10-security-permissions/P084-permission-polling.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "アプリが起動後に権限を確認し正常に動作すること",
+              "ok": true,
+              "tags": [
+                "ポーリングテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3ebc9324de09417e91f7-504c11f97f014b8ec3b3",
+              "file": "10-security-permissions/P084-permission-polling.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10-security-permissions/P085-no-network-required.spec.ts",
+      "file": "10-security-permissions/P085-no-network-required.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P085: ネットワークなしでも基本機能が動作すること (@ネットワークテスター)",
+          "file": "10-security-permissions/P085-no-network-required.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ネットワーク接続がなくても回転操作が正常に動作すること",
+              "ok": true,
+              "tags": [
+                "ネットワークテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "22395bc01f955b864ea7-19b566e6e6d0d19fea69",
+              "file": "10-security-permissions/P085-no-network-required.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10-security-permissions/P086-sandbox-isolation.spec.ts",
+      "file": "10-security-permissions/P086-sandbox-isolation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P086: 他のアプリの設定を変更しないこと (@サンドボックステスター)",
+          "file": "10-security-permissions/P086-sandbox-isolation.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "SpinShelfが他のアプリのUserDefaults設定を変更しないこと",
+              "ok": true,
+              "tags": [
+                "サンドボックステスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "816db86cdc1fbb997ac5-5ec7c2c1138455fc8988",
+              "file": "10-security-permissions/P086-sandbox-isolation.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "11-install-update/P087-swift-build.spec.ts",
+      "file": "11-install-update/P087-swift-build.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P087: swift buildが成功し実行可能バイナリが生成されること (@ビルドテスター)",
+          "file": "11-install-update/P087-swift-build.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "swift buildが成功し実行可能バイナリが生成されること",
+              "ok": true,
+              "tags": [
+                "ビルドテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9da61264abb819472950-a2f574337ad3318838cf",
+              "file": "11-install-update/P087-swift-build.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "11-install-update/P088-clean-build.spec.ts",
+      "file": "11-install-update/P088-clean-build.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P088: クリーンビルドが成功すること (@クリーンビルドテスター)",
+          "file": "11-install-update/P088-clean-build.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "swift package clean && swift build が成功すること",
+              "ok": true,
+              "tags": [
+                "クリーンビルドテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d480c5ac31b517cec3cd-51ee3908ee4d3dc0ae4c",
+              "file": "11-install-update/P088-clean-build.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "11-install-update/P089-first-launch.spec.ts",
+      "file": "11-install-update/P089-first-launch.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P089: 初回起動時にアクセシビリティ権限要求が表示されること (@初回起動テスター)",
+          "file": "11-install-update/P089-first-launch.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "初回起動時にアクセシビリティ権限ダイアログまたは権限チェックが行われること",
+              "ok": true,
+              "tags": [
+                "初回起動テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d914b0c774f4c5a9dca3-8ce4fe4e3934a33313b6",
+              "file": "11-install-update/P089-first-launch.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "11-install-update/P090-update-check.spec.ts",
+      "file": "11-install-update/P090-update-check.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P090: GitHubリリースからの更新チェックが動作すること (@アップデートチェックテスター)",
+          "file": "11-install-update/P090-update-check.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "GitHub APIからリリース情報を取得できること",
+              "ok": true,
+              "tags": [
+                "アップデートチェックテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d483089a23deeed04293-0e609d9874055cb529f8",
+              "file": "11-install-update/P090-update-check.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "11-install-update/P091-launchagent-install.spec.ts",
+      "file": "11-install-update/P091-launchagent-install.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P091: LaunchAgent plistが正しくインストールされること (@LaunchAgentテスター)",
+          "file": "11-install-update/P091-launchagent-install.spec.ts",
+          "line": 9,
+          "column": 6,
+          "specs": [
+            {
+              "title": "LaunchAgent plistが正しい形式でインストールされること",
+              "ok": true,
+              "tags": [
+                "LaunchAgentテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d03c54b9291a6b3284db-c8200bc02db24a203493",
+              "file": "11-install-update/P091-launchagent-install.spec.ts",
+              "line": 10,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "12-compatibility/P092-macos-ventura.spec.ts",
+      "file": "12-compatibility/P092-macos-ventura.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P092: macOS 13 (Ventura)で動作すること (@Venturaテスター)",
+          "file": "12-compatibility/P092-macos-ventura.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "macOS Ventura互換性チェック",
+              "ok": true,
+              "tags": [
+                "Venturaテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "78d7b804c3d4bcda39fc-d67acbe28a9e68a2feff",
+              "file": "12-compatibility/P092-macos-ventura.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "12-compatibility/P093-macos-sonoma.spec.ts",
+      "file": "12-compatibility/P093-macos-sonoma.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P093: macOS 14 (Sonoma)で動作すること (@Sonomaテスター)",
+          "file": "12-compatibility/P093-macos-sonoma.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "macOS Sonoma互換性チェック",
+              "ok": true,
+              "tags": [
+                "Sonomaテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b3053d6109193e6f1ffb-35fe912ff5ec1f4e90fb",
+              "file": "12-compatibility/P093-macos-sonoma.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "12-compatibility/P094-macos-sequoia.spec.ts",
+      "file": "12-compatibility/P094-macos-sequoia.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P094: macOS 15 (Sequoia)で動作すること (@Sequoiaテスター)",
+          "file": "12-compatibility/P094-macos-sequoia.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "macOS Sequoia互換性チェック",
+              "ok": true,
+              "tags": [
+                "Sequoiaテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "0ac4b97a320f78c8a699-6b713306d51b06bd6904",
+              "file": "12-compatibility/P094-macos-sequoia.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "12-compatibility/P095-apple-silicon.spec.ts",
+      "file": "12-compatibility/P095-apple-silicon.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P095: Apple Silicon (arm64)で正常動作すること (@Apple Siliconテスター)",
+          "file": "12-compatibility/P095-apple-silicon.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Apple Siliconアーキテクチャで正常に動作すること",
+              "ok": true,
+              "tags": [
+                "Apple"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "1b48d73b49aed84742b5-08f6b54d1c5c72e3520c",
+              "file": "12-compatibility/P095-apple-silicon.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "12-compatibility/P096-intel-mac.spec.ts",
+      "file": "12-compatibility/P096-intel-mac.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P096: Intel Mac (x86_64)でも動作すること (@Intelテスター)",
+          "file": "12-compatibility/P096-intel-mac.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "x86_64アーキテクチャ互換性チェック",
+              "ok": true,
+              "tags": [
+                "Intelテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "876be78b6628548bf781-921b1837960b577787e5",
+              "file": "12-compatibility/P096-intel-mac.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "13-durability-reliability/P097-long-running.spec.ts",
+      "file": "13-durability-reliability/P097-long-running.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P097: 1時間連続起動でもメモリ・CPU安定であること (@長時間テスター)",
+          "file": "13-durability-reliability/P097-long-running.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "5分間のモニタリングでメモリ・CPUが安定していること",
+              "ok": true,
+              "tags": [
+                "長時間テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "7029b682e1b5dec98506-4e587a849878091e5c25",
+              "file": "13-durability-reliability/P097-long-running.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "13-durability-reliability/P098-repeated-rotation.spec.ts",
+      "file": "13-durability-reliability/P098-repeated-rotation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P098: 100回の回転サイクルでエラーが発生しないこと (@繰り返しテスター)",
+          "file": "13-durability-reliability/P098-repeated-rotation.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "100回の回転操作後もアプリが安定して動作すること",
+              "ok": true,
+              "tags": [
+                "繰り返しテスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f71dde918c03080e387a-fa4aa7c52762fbab3d0f",
+              "file": "13-durability-reliability/P098-repeated-rotation.spec.ts",
+              "line": 8,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "13-durability-reliability/P099-display-reconnect-cycle.spec.ts",
+      "file": "13-durability-reliability/P099-display-reconnect-cycle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P099: ディスプレイの接続/切断を繰り返しても安定すること (@再接続テスター)",
+          "file": "13-durability-reliability/P099-display-reconnect-cycle.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "ディスプレイ構成変更後もアプリが安定動作すること",
+              "ok": true,
+              "tags": [
+                "再接続テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "b8d54cd9d9e01f6bc719-84e93d6893815d610114",
+              "file": "13-durability-reliability/P099-display-reconnect-cycle.spec.ts",
+              "line": 7,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "13-durability-reliability/P100-error-log-check.spec.ts",
+      "file": "13-durability-reliability/P100-error-log-check.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "P100: テスト実行中にエラーログが出力されていないこと (@ログ監視テスター)",
+          "file": "13-durability-reliability/P100-error-log-check.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "SpinShelfプロセスのログにエラーが含まれていないこと",
+              "ok": true,
+              "tags": [
+                "ログ監視テスター)"
+              ],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "spinshelf-e2e",
+                  "projectName": "spinshelf-e2e",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f56df5814ff7d26f8239-efe4b0c8e94d0a7909b6",
+              "file": "13-durability-reliability/P100-error-log-check.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-03-19T06:09:18.071Z",
+    "duration": 346.86199999999997,
+    "expected": 0,
+    "skipped": 100,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

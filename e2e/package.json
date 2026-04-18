@@ -1,0 +1,17 @@
+{
+  "name": "spinshelf-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "report": "npx playwright show-report",
+    "cycle": "npx ts-node run-e2e-cycle.ts",
+    "generate-report": "npx ts-node generate-report.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "typescript": "^5.6.0",
+    "ts-node": "^10.9.0"
+  }
+}

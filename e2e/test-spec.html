@@ -1,0 +1,2925 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpinShelf E2E Test Specification</title>
+<style>
+  :root {
+    --color-bg: #f5f5f7;
+    --color-surface: #ffffff;
+    --color-text: #1d1d1f;
+    --color-text-secondary: #86868b;
+    --color-border: #d2d2d7;
+    --color-accent: #0071e3;
+    --color-cat01: #0071e3;
+    --color-cat02: #34c759;
+    --color-cat03: #ff9500;
+    --color-cat04: #af52de;
+    --color-cat05: #ff3b30;
+    --color-cat06: #5856d6;
+    --color-cat07: #ff2d55;
+    --color-cat08: #00c7be;
+    --color-cat09: #30b0c7;
+    --color-cat10: #a2845e;
+    --color-cat11: #64d2ff;
+    --color-cat12: #ffd60a;
+    --color-cat13: #ff6482;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-size: 17px;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+  }
+  .header .meta {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  /* Dashboard */
+  .dashboard {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+  .dashboard h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .dashboard-total {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .dashboard-total .count {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .dashboard-total .label {
+    font-size: 17px;
+    color: var(--color-text-secondary);
+  }
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .dashboard-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--color-bg);
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .dashboard-item:hover {
+    transform: scale(1.02);
+  }
+  .dashboard-item .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dashboard-item .cat-count {
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* Category section */
+  details.category {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  details.category[open] {
+    box-shadow: var(--shadow-lg);
+  }
+  details.category > summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    font-size: 17px;
+    font-weight: 600;
+    border-left: 4px solid transparent;
+    transition: background 0.15s ease;
+  }
+  details.category > summary::-webkit-details-marker { display: none; }
+  details.category > summary::before {
+    content: "\25B6";
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  details.category[open] > summary::before {
+    transform: rotate(90deg);
+  }
+  details.category > summary:hover {
+    background: var(--color-bg);
+  }
+  details.category > summary .cat-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  details.category > summary .cat-count-badge {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-left: auto;
+  }
+  .category-content {
+    padding: 0 24px 24px;
+  }
+
+  /* Test card */
+  .test-card {
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.15s ease;
+  }
+  .test-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .test-card:last-child { margin-bottom: 0; }
+
+  .test-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .test-id {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .test-title {
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 200px;
+  }
+  .persona {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    padding: 3px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .test-section {
+    margin-bottom: 14px;
+  }
+  .test-section:last-child { margin-bottom: 0; }
+  .test-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+  }
+  .test-section p, .test-section li {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .test-section ol {
+    padding-left: 20px;
+  }
+  .test-section ol li {
+    margin-bottom: 3px;
+  }
+  .evidence-placeholder {
+    background: var(--color-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+  }
+
+  /* Color classes */
+  .c01 { background: var(--color-cat01); }
+  .c02 { background: var(--color-cat02); }
+  .c03 { background: var(--color-cat03); }
+  .c04 { background: var(--color-cat04); }
+  .c05 { background: var(--color-cat05); }
+  .c06 { background: var(--color-cat06); }
+  .c07 { background: var(--color-cat07); }
+  .c08 { background: var(--color-cat08); }
+  .c09 { background: var(--color-cat09); }
+  .c10 { background: var(--color-cat10); }
+  .c11 { background: var(--color-cat11); }
+  .c12 { background: var(--color-cat12); color: #1d1d1f; }
+  .c13 { background: var(--color-cat13); }
+
+  .b01 { border-left-color: var(--color-cat01); }
+  .b02 { border-left-color: var(--color-cat02); }
+  .b03 { border-left-color: var(--color-cat03); }
+  .b04 { border-left-color: var(--color-cat04); }
+  .b05 { border-left-color: var(--color-cat05); }
+  .b06 { border-left-color: var(--color-cat06); }
+  .b07 { border-left-color: var(--color-cat07); }
+  .b08 { border-left-color: var(--color-cat08); }
+  .b09 { border-left-color: var(--color-cat09); }
+  .b10 { border-left-color: var(--color-cat10); }
+  .b11 { border-left-color: var(--color-cat11); }
+  .b12 { border-left-color: var(--color-cat12); }
+  .b13 { border-left-color: var(--color-cat13); }
+
+  .d01 { background: color-mix(in srgb, var(--color-cat01) 10%, transparent); }
+  .d02 { background: color-mix(in srgb, var(--color-cat02) 10%, transparent); }
+  .d03 { background: color-mix(in srgb, var(--color-cat03) 10%, transparent); }
+  .d04 { background: color-mix(in srgb, var(--color-cat04) 10%, transparent); }
+  .d05 { background: color-mix(in srgb, var(--color-cat05) 10%, transparent); }
+  .d06 { background: color-mix(in srgb, var(--color-cat06) 10%, transparent); }
+  .d07 { background: color-mix(in srgb, var(--color-cat07) 10%, transparent); }
+  .d08 { background: color-mix(in srgb, var(--color-cat08) 10%, transparent); }
+  .d09 { background: color-mix(in srgb, var(--color-cat09) 10%, transparent); }
+  .d10 { background: color-mix(in srgb, var(--color-cat10) 10%, transparent); }
+  .d11 { background: color-mix(in srgb, var(--color-cat11) 10%, transparent); }
+  .d12 { background: color-mix(in srgb, var(--color-cat12) 10%, transparent); }
+  .d13 { background: color-mix(in srgb, var(--color-cat13) 10%, transparent); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; max-width: 100%; }
+    details.category { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    details.category[open] { box-shadow: none; }
+    .test-card { break-inside: avoid; }
+    .dashboard { break-inside: avoid; }
+    .dashboard-item:hover { transform: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .header h1 { font-size: 28px; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .test-card-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>SpinShelf E2E Test Specification</h1>
+  <p class="subtitle">Comprehensive End-to-End Test Cases for macOS Carousel Window Manager</p>
+  <p class="meta">Version 0.1.0 &middot; Generated 2026-03-19 &middot; 100 Test Cases &middot; 13 Categories</p>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard">
+  <h2>Summary Dashboard</h2>
+  <div class="dashboard-total">
+    <span class="count">100</span>
+    <span class="label">Total Test Cases</span>
+  </div>
+  <div class="dashboard-grid">
+    <a class="dashboard-item" href="#cat01"><span class="dot c01"></span>01 基本機能<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat02"><span class="dot c02"></span>02 マルチディスプレイ<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat03"><span class="dot c03"></span>03 ウィンドウ管理<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat04"><span class="dot c04"></span>04 入力/ジェスチャー<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat05"><span class="dot c05"></span>05 設定<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat06"><span class="dot c06"></span>06 パフォーマンス/負荷<span class="cat-count">8</span></a>
+    <a class="dashboard-item" href="#cat07"><span class="dot c07"></span>07 異常系/エッジケース<span class="cat-count">10</span></a>
+    <a class="dashboard-item" href="#cat08"><span class="dot c08"></span>08 UI/UX<span class="cat-count">8</span></a>
+    <a class="dashboard-item" href="#cat09"><span class="dot c09"></span>09 ローカライゼーション<span class="cat-count">5</span></a>
+    <a class="dashboard-item" href="#cat10"><span class="dot c10"></span>10 セキュリティ/権限<span class="cat-count">5</span></a>
+    <a class="dashboard-item" href="#cat11"><span class="dot c11"></span>11 インストール/アップデート<span class="cat-count">5</span></a>
+    <a class="dashboard-item" href="#cat12"><span class="dot c12"></span>12 互換性<span class="cat-count">5</span></a>
+    <a class="dashboard-item" href="#cat13"><span class="dot c13"></span>13 耐久性/信頼性<span class="cat-count">4</span></a>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Category 01: 基本機能 -->
+<!-- ============================================================ -->
+<details class="category" id="cat01">
+<summary class="b01"><span class="cat-badge c01">CAT-01</span>基本機能 (P001 - P010)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P001</span>
+    <span class="test-title">アプリ起動・メニューバーアイコン表示</span>
+    <span class="persona">QAリーダー (10年経験)</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>macOS 13以降がインストールされていること。SpinShelfがビルド済みであること。アクセシビリティ権限が付与済みであること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ターミナルを開き、SpinShelfプロジェクトディレクトリに移動する</li>
+      <li><code>swift run</code> を実行してSpinShelfを起動する</li>
+      <li>macOSメニューバー（画面右上）を確認する</li>
+      <li>矢印アイコン（arrow.left.arrow.right.square）がメニューバーに表示されていることを目視確認する</li>
+      <li>コンソールログに「[SpinShelf] Carousel started」が出力されていることを確認する</li>
+      <li>アイコンがメニューバー上で適切なサイズ（squareLength）で表示されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SpinShelfが正常に起動し、メニューバーにarrow.left.arrow.right.squareアイコンが表示される。ログに「Carousel started」が記録される。アイコンはシステムの他のメニューバーアイコンと同様のサイズで表示される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: メニューバーアイコン表示 / Console log capture</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P002</span>
+    <span class="test-title">メニューからの正常終了</span>
+    <span class="persona">テスト自動化エンジニア</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfが起動中であること。メニューバーにアイコンが表示されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーのSpinShelfアイコンをクリックする</li>
+      <li>ドロップダウンメニューから「Quit」(または「終了」)を選択する</li>
+      <li>代替手順: Cmd+Q ショートカットを押す</li>
+      <li>プロセスリスト（Activity Monitor または <code>ps aux | grep SpinShelf</code>）でSpinShelfプロセスが終了していることを確認する</li>
+      <li>メニューバーからSpinShelfアイコンが消えていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SpinShelfプロセスがクリーンに終了する。メニューバーからアイコンが消える。クラッシュログが生成されない。NSApplication.terminate(nil) が正常に呼ばれる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: メニュー表示 / Process list before and after</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P003</span>
+    <span class="test-title">メニューバーアイコンクリック→メニュー表示</span>
+    <span class="persona">UI/UXテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfが起動中であること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーのSpinShelfアイコンをクリックする</li>
+      <li>ドロップダウンメニューが表示されることを確認する</li>
+      <li>メニュー項目が以下の順序で表示されることを確認する:
+        <br>- 「Rotate Left」(arrow.leftアイコン付き) + ショートカット表示
+        <br>- 「Rotate Right」(arrow.rightアイコン付き) + ショートカット表示
+        <br>- セパレータ
+        <br>- 「Settings...」(gearshapeアイコン付き, Cmd+,)
+        <br>- セパレータ
+        <br>- 「Check for Updates」(arrow.triangle.2.circulepath付き)
+        <br>- 「About SpinShelf」(info.circleアイコン付き)
+        <br>- 「Quit」(Cmd+Q)
+      </li>
+      <li>各メニュー項目にSF Symbolsアイコンが正しく表示されていることを確認する</li>
+      <li>ショートカットキー表示（⌃⇧← / ⌃⇧→）がメニュー右側に表示されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>全7メニュー項目（+2セパレータ）が正しい順序で表示される。各項目にSF Symbolsアイコンとショートカットキー表示が正しく表示される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: ドロップダウンメニュー全体</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P004</span>
+    <span class="test-title">Ctrl+Shift+→で右回転</span>
+    <span class="persona">機能テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfが起動中。2台以上のディスプレイが接続されていること。ショートカットがデフォルト設定（Ctrl+Shift+→）であること。Finderウィンドウがディスプレイ1に開いていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finderウィンドウをディスプレイ1に配置する</li>
+      <li>ウィンドウの位置とサイズを記録する（スクリーンショットまたはAppleScript）</li>
+      <li>Ctrl+Shift+→ キーを押す</li>
+      <li>コンソールログに「⌃⇧→ detected」が出力されることを確認する</li>
+      <li>ログに「Rotating right with N windows across M displays」が出力されることを確認する</li>
+      <li>Finderウィンドウがディスプレイ2に移動したことを確認する</li>
+      <li>ウィンドウの相対位置が保持されていることを確認する</li>
+      <li>ログに「Rotation complete」が出力されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>Ctrl+Shift+→ を押すとディスプレイ1上のウィンドウがディスプレイ2に移動する。ウィンドウの相対位置が保持される。CGEventTapがキーイベントを消費し（nilを返す）、他アプリにキーが渡らない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 移動前後のウィンドウ位置 / Console log</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P005</span>
+    <span class="test-title">Ctrl+Shift+←で左回転</span>
+    <span class="persona">回帰テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfが起動中。2台以上のディスプレイが接続。ウィンドウがディスプレイ2に存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finderウィンドウをディスプレイ2に配置する</li>
+      <li>ウィンドウの位置とサイズを記録する</li>
+      <li>Ctrl+Shift+← キーを押す</li>
+      <li>コンソールログに「⌃⇧← detected」が出力されることを確認する</li>
+      <li>ログに「Rotating left with N windows across M displays」が出力されることを確認する</li>
+      <li>Finderウィンドウがディスプレイ1に移動したことを確認する</li>
+      <li>ウィンドウの相対位置が移動先ディスプレイ上で適切であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>Ctrl+Shift+← でウィンドウが左方向（ディスプレイ2→ディスプレイ1）に移動する。CarouselControllerのrotate(direction: .left)が呼ばれ、targetIndex = (idx - 1 + count) % count で正しい移動先が計算される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 移動前後 / Console log</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P006</span>
+    <span class="test-title">最終ディスプレイ→最初のディスプレイ循環</span>
+    <span class="persona">境界値テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイが接続されていること。ウィンドウがディスプレイ3（最右端）に存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finderウィンドウをディスプレイ3（最右端）に配置する</li>
+      <li>ウィンドウ位置を記録する</li>
+      <li>Ctrl+Shift+→ を押す（右回転）</li>
+      <li>ウィンドウがディスプレイ1（最左端）に移動したことを確認する</li>
+      <li>逆方向もテスト: ウィンドウをディスプレイ1に配置し、Ctrl+Shift+← を押す</li>
+      <li>ウィンドウがディスプレイ3（最右端）に移動したことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>メリーゴーランド方式の循環が正しく動作する。右回転: (idx+1) % count でインデックスが0に戻る。左回転: (idx-1+count) % count でインデックスが最大値になる。ウィンドウが画面外に飛ばない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 循環前後のウィンドウ位置（3画面すべて）</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P007</span>
+    <span class="test-title">単一ディスプレイでエラーなし</span>
+    <span class="persona">環境テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>外部ディスプレイを全て取り外し、内蔵ディスプレイのみの状態。SpinShelfが起動中。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>外部ディスプレイを全て取り外す</li>
+      <li>SpinShelfを起動する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>コンソールログに「Need at least 2 displays for rotation」が出力されることを確認する</li>
+      <li>Ctrl+Shift+← を押す</li>
+      <li>同様のログメッセージが出力されることを確認する</li>
+      <li>アプリがクラッシュしていないことを確認する</li>
+      <li>メニューバーアイコンが引き続き表示されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>displays.count &lt; 2 のガードが正しく動作し、回転をスキップする。クラッシュやエラーダイアログは発生しない。isRotatingフラグが正しく解除される（lock.withLock { $0 = false }）。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: "Need at least 2 displays" / No crash report</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P008</span>
+    <span class="test-title">複数ウィンドウ同時移動</span>
+    <span class="persona">結合テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ディスプレイ1にFinderウィンドウ2個、Safariウィンドウ1個。ディスプレイ2にTerminalウィンドウ1個。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイ1にFinderウィンドウ2個、Safariウィンドウ1個を配置する</li>
+      <li>ディスプレイ2にTerminalウィンドウ1個を配置する</li>
+      <li>全ウィンドウの位置・サイズを記録する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>ディスプレイ1のウィンドウ3個がディスプレイ2に移動したことを確認する</li>
+      <li>ディスプレイ2のTerminalウィンドウがディスプレイ1に移動したことを確認する</li>
+      <li>全ウィンドウが正しく表示されていることを確認する（重なり、はみ出しなし）</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>全ディスプレイのウィンドウが一斉に次のディスプレイへ移動する。異なるアプリのウィンドウも全て移動する。フロントウィンドウはフェードアニメーション付きで移動し、背面ウィンドウはインスタント移動する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 4ウィンドウの移動前後 / Console log showing window count</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P009</span>
+    <span class="test-title">z-order保持確認</span>
+    <span class="persona">詳細テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ディスプレイ1に3つのウィンドウが重なった状態で配置（Finder手前、Safari中間、Terminal最背面）。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイ1にFinder、Safari、Terminalの3ウィンドウを重ねて配置する</li>
+      <li>z-order（前面→背面）を記録する: Finder &gt; Safari &gt; Terminal</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>ディスプレイ2に移動した3ウィンドウのz-orderを確認する</li>
+      <li>Finderが最前面、Safariが中間、Terminalが最背面のままであることを確認する</li>
+      <li>CGWindowListCopyWindowInfoのz-order情報と移動後の実際の描画順を比較する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>tasks.sort { $0.window.zOrder &lt; $1.window.zOrder } によりz-orderが保持される。Phase 1で前面ウィンドウが先にフェード移動し、Phase 2で背面ウィンドウがインスタント移動する。移動後もz-orderが維持される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 重なり順の比較（移動前後）</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c01">P010</span>
+    <span class="test-title">右回転→左回転で元に戻る</span>
+    <span class="persona">探索テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。各ディスプレイにウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイ1にFinderウィンドウ、ディスプレイ2にSafariウィンドウを配置する</li>
+      <li>全ウィンドウの位置・サイズを正確に記録する（AppleScriptまたはAccessibility Inspector）</li>
+      <li>Ctrl+Shift+→ を押す（右回転）</li>
+      <li>Finderがディスプレイ2、Safariがディスプレイ1に移動したことを確認する</li>
+      <li>Ctrl+Shift+← を押す（左回転）</li>
+      <li>Finderがディスプレイ1、Safariがディスプレイ2に戻ったことを確認する</li>
+      <li>全ウィンドウの位置・サイズが元の値と一致する（同一解像度の場合）ことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>右回転と左回転は逆操作であり、同一解像度ディスプレイ間では完全に元の状態に戻る。位置の相対計算（relativeX/relativeY）が可逆的であること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 初期状態 / 右回転後 / 左回転後（元に戻った状態）</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 02: マルチディスプレイ -->
+<!-- ============================================================ -->
+<details class="category" id="cat02">
+<summary class="b02"><span class="cat-badge c02">CAT-02</span>マルチディスプレイ (P011 - P020)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P011</span>
+    <span class="test-title">全ディスプレイ検出</span>
+    <span class="persona">ハードウェアテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台以上のディスプレイが接続されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>3台のディスプレイを接続する（内蔵+外部2台）</li>
+      <li>SpinShelfを起動する</li>
+      <li>コンソールログで「Active rotation displays: 3」が出力されることを確認する</li>
+      <li>各ディスプレイの解像度・座標情報がログに出力されていることを確認する</li>
+      <li>設定ウィンドウを開き、ディスプレイレイアウトビューに3台全てが表示されていることを確認する</li>
+      <li>CGGetActiveDisplayList で取得される台数と一致することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>CGGetActiveDisplayList(16, ...) により最大16台まで検出可能。接続中の全ディスプレイがallDisplaysに格納され、ログに「Display N: WxH at (X, Y)」形式で出力される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: 全ディスプレイ情報 / Settings window screenshot</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P012</span>
+    <span class="test-title">X座標順ソート</span>
+    <span class="persona">構成テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイが横並びに配置されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定でディスプレイを横一列に配置する（左→中→右）</li>
+      <li>SpinShelfを起動する</li>
+      <li>コンソールログのDisplay情報を確認する</li>
+      <li>Display 0のX座標 &lt; Display 1のX座標 &lt; Display 2のX座標であることを確認する</li>
+      <li>設定ウィンドウのディスプレイレイアウトで番号順序が左→右であることを確認する</li>
+      <li>システム環境設定でディスプレイ配置を変更（中央と右を入れ替え）し、ログのソート順が更新されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>allDisplaysが .sorted { $0.frame.origin.x &lt; $1.frame.origin.x } でソートされる。ディスプレイ配置変更後にrefreshDisplays()が呼ばれ、新しい順序で再ソートされる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: X座標順のディスプレイリスト</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P013</span>
+    <span class="test-title">カスタム巡回順序</span>
+    <span class="persona">カスタマイズテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイが接続されていること。デフォルト順序（X座標順: 0→1→2）であること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウを開く</li>
+      <li>「Set Order」ボタンをクリックする</li>
+      <li>ディスプレイをカスタム順序（例: 2→0→1）でクリックする</li>
+      <li>全ディスプレイをクリックすると自動確定されることを確認する</li>
+      <li>巡回順テキストが「2 → 0 → 1 → 2 (loop)」と表示されることを確認する</li>
+      <li>Ctrl+Shift+→ を押し、カスタム順序で回転することを確認する</li>
+      <li>SettingsManager.displayOrderにCGDirectDisplayIDの配列が保存されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>applyDisplayOrder() でsavedOrderに基づいてdisplaysが並べ替えられる。回転はカスタム順序に従って行われる。UserDefaultsに永続化される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: カスタム順序設定UI / Console log showing custom rotation</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P014</span>
+    <span class="test-title">ディスプレイ接続/取り外し対応</span>
+    <span class="persona">接続テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfが起動中。2台のディスプレイが接続されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfが2台のディスプレイで正常動作していることを確認する</li>
+      <li>外部ディスプレイを物理的に取り外す</li>
+      <li>コンソールログに「Display configuration changed」が出力されることを確認する</li>
+      <li>ログに「Active rotation displays: 1」が出力されることを確認する</li>
+      <li>Ctrl+Shift+→ を押し、「Need at least 2 displays」がログに出力されることを確認する</li>
+      <li>外部ディスプレイを再接続する</li>
+      <li>「Display configuration changed」→「Active rotation displays: 2」がログに出力されることを確認する</li>
+      <li>Ctrl+Shift+→ で正常に回転することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>NSApplication.didChangeScreenParametersNotification の監視によりディスプレイ変更を動的に検知する。refreshDisplays() が呼ばれ、displays配列が更新される。再接続後も正常に動作する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: 接続/切断のイベントログ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P015</span>
+    <span class="test-title">異解像度間リサイズ</span>
+    <span class="persona">解像度テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>異なる解像度の2台のディスプレイ（例: 2560x1440 と 1920x1080）が接続されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>高解像度ディスプレイ（2560x1440）にFinderウィンドウ（800x600）を配置する</li>
+      <li>ウィンドウ位置とサイズを記録する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>フェードアウト→移動→フェードインのアニメーションが発生することを確認する</li>
+      <li>低解像度ディスプレイ（1920x1080）に移動したウィンドウのサイズを確認する</li>
+      <li>ウィンドウがターゲットディスプレイの可視領域内に収まっていることを確認する</li>
+      <li>isSameResolution() が false を返し、フェード付き移動が実行されたことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>異なる解像度ではmoveWindowWithFade()が3ステップ移動（shrink→position→resize）を実行する。CGSSetWindowAlphaによるフェードが動作する。ウィンドウサイズがターゲットのvisibleFrame内に収まる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 異解像度間の移動前後 / Window size comparison</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P016</span>
+    <span class="test-title">異アスペクト比フィット</span>
+    <span class="persona">アスペクト比テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>異なるアスペクト比のディスプレイ2台（例: 16:9 と 21:9 ウルトラワイド）が接続されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>16:9ディスプレイにウィンドウを右端いっぱいに配置する</li>
+      <li>ウィンドウの位置（相対位置含む）を記録する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>21:9ディスプレイに移動したウィンドウの位置を確認する</li>
+      <li>相対位置（relativeX = (pos.x - origin.x) / width）が保持されていることを確認する</li>
+      <li>ウィンドウがディスプレイ境界外にはみ出していないことを確認する</li>
+      <li>calculateTarget のクランプ処理が正しく動作していることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>relativeX/relativeY による比例計算で位置が決定される。ウィンドウがターゲットのvisibleFrame外にはみ出す場合、max() と境界チェックでクランプされる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 異アスペクト比間の移動結果</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P017</span>
+    <span class="test-title">3画面A→B→C→A循環</span>
+    <span class="persona">マルチモニターテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイが接続。ディスプレイAにFinderウィンドウが配置されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイA（左端）にFinderウィンドウを配置する</li>
+      <li>Ctrl+Shift+→ を押す → ウィンドウがディスプレイBに移動したことを確認する</li>
+      <li>Ctrl+Shift+→ を押す → ウィンドウがディスプレイCに移動したことを確認する</li>
+      <li>Ctrl+Shift+→ を押す → ウィンドウがディスプレイAに戻ったことを確認する（循環）</li>
+      <li>合計3回の右回転で元のディスプレイに戻ることを確認する</li>
+      <li>位置が初期位置と一致する（同一解像度の場合）ことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>3画面構成で右回転3回（= displays.count回）で元のディスプレイに戻る。(idx + 1) % 3 の循環が正しく動作する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 各回転後のウィンドウ位置（4枚: 初期/A/B/C→A）</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P018</span>
+    <span class="test-title">縦並び/横並び配置</span>
+    <span class="persona">レイアウトテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ。システム環境設定でディスプレイを縦並びに配置。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定 → ディスプレイ → 配置 でディスプレイを縦並び（上下）にする</li>
+      <li>SpinShelfを再起動する（または設定変更の自動検知を待つ）</li>
+      <li>ログで上のディスプレイのX座標が同じ（Y座標が異なる）ことを確認する</li>
+      <li>X座標ソートだと同じ位置になるが、正しく2台検出されることを確認する</li>
+      <li>Ctrl+Shift+→ でウィンドウが移動することを確認する</li>
+      <li>横並びに戻し、再度動作確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>X座標が同一の場合もソートは安定的に動作する（Swiftの .sorted は安定ソート）。縦並びでも2台として検出され、正常に回転する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 縦並び配置でのディスプレイ情報ログ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P019</span>
+    <span class="test-title">メインディスプレイ特別扱い不要</span>
+    <span class="persona">メインディスプレイテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。メインディスプレイが外部モニター側に設定されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定でメインディスプレイを外部モニターに変更する</li>
+      <li>SpinShelfを起動する</li>
+      <li>Ctrl+Shift+→ でウィンドウが正常に回転することを確認する</li>
+      <li>メインディスプレイのウィンドウも非メインと同様に移動することを確認する</li>
+      <li>設定ウィンドウのディスプレイレイアウトで「Main」ラベルが正しいディスプレイに表示されることを確認する</li>
+      <li>メインディスプレイを内蔵に戻し、同様に動作確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>メインディスプレイは特別扱いされず、他のディスプレイと同様に巡回対象となる。visibleFrame の計算（CGDisplayBounds → NSScreen.visibleFrame変換）が正しく動作する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: メインディスプレイ変更前後の動作</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c02">P020</span>
+    <span class="test-title">特定ディスプレイ除外</span>
+    <span class="persona">除外テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイが接続されていること。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウを開く</li>
+      <li>「Set Order」をクリックする</li>
+      <li>3台中2台のみクリックして選択する（1台を除外）</li>
+      <li>「Done」をクリックして確定する</li>
+      <li>「Excluded」セクションに除外されたディスプレイの解像度ラベルが表示されることを確認する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>除外されたディスプレイのウィンドウが移動しないことを確認する</li>
+      <li>除外されていない2台のディスプレイ間でのみ回転することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>displayOrderに含まれないディスプレイIDのウィンドウはrotation対象外。CarouselControllerのrotate()で、allDisplaysでウィンドウの所属を判定した後、displays（rotation対象のみ）に含まれないディスプレイのウィンドウはスキップされる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 除外設定UI / 除外ディスプレイのウィンドウが不動であること</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 03: ウィンドウ管理 -->
+<!-- ============================================================ -->
+<details class="category" id="cat03">
+<summary class="b03"><span class="cat-badge c03">CAT-03</span>ウィンドウ管理 (P021 - P030)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P021</span>
+    <span class="test-title">相対位置保持</span>
+    <span class="persona">位置テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>同一解像度の2台のディスプレイ接続。ウィンドウをディスプレイ左上寄りに配置。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイ1の左上25%の位置にウィンドウを配置する</li>
+      <li>ウィンドウの位置を記録する（例: sourceFrame内でrelativeX=0.25, relativeY=0.25）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>ディスプレイ2に移動したウィンドウの位置を記録する</li>
+      <li>相対位置（relativeX, relativeY）が移動前後で一致することを確認する</li>
+      <li>ウィンドウを右下75%の位置に移動し、同様のテストを繰り返す</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>calculateTarget()のrelativeX/relativeYにより、ソースディスプレイ上の相対位置がターゲットディスプレイでも保持される。同一解像度ならピクセル単位で一致する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Position data: 移動前後の座標値比較</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P022</span>
+    <span class="test-title">ターゲット解像度適応</span>
+    <span class="persona">リサイズテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>異なる解像度のディスプレイ2台。大きなウィンドウがソースディスプレイに存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>高解像度ディスプレイに大きなウィンドウ（例: 2400x1200）を配置する</li>
+      <li>Ctrl+Shift+→ で低解像度ディスプレイに移動する</li>
+      <li>ウィンドウサイズが低解像度ディスプレイのvisibleFrameに収まるようにクリップされることを確認する</li>
+      <li>newSize.width &gt; targetFrame.width → newSize.width = targetFrame.width のクランプが動作していることを確認する</li>
+      <li>逆方向に移動し、元のサイズに戻らない（クリップされたサイズが維持される）ことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>ウィンドウサイズがターゲットのvisibleFrame.widthおよびvisibleFrame.heightを超える場合、自動的にクリップされる。フェード付きの3ステップ移動が実行される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Window size data: 移動前後のサイズ比較</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P023</span>
+    <span class="test-title">ディスプレイ境界内収まり</span>
+    <span class="persona">境界テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ウィンドウをソースディスプレイの右下端に配置。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ソースディスプレイの右下角にウィンドウを配置する（ディスプレイ端に接触）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>移動先ディスプレイでウィンドウが境界外にはみ出していないことを確認する</li>
+      <li>newOrigin.x + newSize.width &le; targetFrame.maxX であることを確認する</li>
+      <li>newOrigin.y + newSize.height &le; targetFrame.maxY であることを確認する</li>
+      <li>newOrigin.x &ge; targetFrame.origin.x かつ newOrigin.y &ge; targetFrame.origin.y であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>calculateTarget()のクランプ処理（max()とif文での境界チェック）により、ウィンドウは常にターゲットディスプレイのvisibleFrame内に収まる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Position data: 境界値でのウィンドウ座標</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P024</span>
+    <span class="test-title">最小化ウィンドウスキップ</span>
+    <span class="persona">状態テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ディスプレイ1にFinderウィンドウ（表示中）と最小化されたSafariウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ディスプレイ1にFinderウィンドウを表示する</li>
+      <li>Safariウィンドウを開き、Dockに最小化する（Cmd+M）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>Finderウィンドウがディスプレイ2に移動したことを確認する</li>
+      <li>最小化されたSafariウィンドウがDockに残っている（移動されていない）ことを確認する</li>
+      <li>Safariを復元し、正しいディスプレイに表示されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>listWindows()のフィルタ（if info.isMinimized || info.isFullScreen { continue }）により、最小化ウィンドウは移動対象から除外される。kAXMinimizedAttributeの取得が正しく動作する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 最小化ウィンドウがDockに残っていること</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P025</span>
+    <span class="test-title">フルスクリーンスキップ</span>
+    <span class="persona">フルスクリーンテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ディスプレイ1にフルスクリーンのSafariウィンドウと通常のFinderウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Safariをフルスクリーンにする（Ctrl+Cmd+F）</li>
+      <li>ディスプレイ1にFinderウィンドウも開く</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>Finderウィンドウがディスプレイ2に移動したことを確認する</li>
+      <li>フルスクリーンのSafariが移動されずにそのままであることを確認する</li>
+      <li>Safariのフルスクリーンを解除し、通常ウィンドウとして回転対象になることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>AXFullScreenアトリビュートがtrueのウィンドウはlistWindows()でスキップされる。フルスクリーン解除後は通常のウィンドウとして扱われる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: フルスクリーンウィンドウが移動されないこと</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P026</span>
+    <span class="test-title">複数アプリウィンドウ同時移動</span>
+    <span class="persona">アプリ横断テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。ディスプレイ1にFinder、Safari、Terminal、Notesの各ウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finder、Safari、Terminal、Notesを起動し、それぞれのウィンドウをディスプレイ1に配置する</li>
+      <li>各ウィンドウの位置を記録する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>4つの異なるアプリのウィンドウが全てディスプレイ2に移動したことを確認する</li>
+      <li>各ウィンドウのアプリ所属（ownerPID）が変わっていないことを確認する</li>
+      <li>NSWorkspace.shared.runningApplicationsのactivationPolicy == .regularフィルタで適切にアプリが列挙されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>listWindows()がNSWorkspace.shared.runningApplicationsを列挙し、activationPolicy == .regularの全アプリからウィンドウを取得する。アプリの種類に関係なく全ウィンドウが移動される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 4アプリのウィンドウが全て移動した状態</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P027</span>
+    <span class="test-title">大きいウィンドウクリップ</span>
+    <span class="persona">サイズテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>異なる解像度のディスプレイ2台。高解像度側にディスプレイいっぱいのウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>高解像度ディスプレイ（2560x1440）でウィンドウを最大化（フルスクリーンではなく）する</li>
+      <li>Ctrl+Shift+→ で低解像度ディスプレイ（1920x1080）に移動する</li>
+      <li>ウィンドウの幅がtargetFrame.widthにクリップされることを確認する</li>
+      <li>ウィンドウの高さがtargetFrame.heightにクリップされることを確認する</li>
+      <li>ウィンドウがディスプレイの可視領域外にはみ出していないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>calculateTarget()内の「if newSize.width &gt; targetFrame.width { newSize.width = targetFrame.width }」によりクリップされる。高さも同様。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Window size comparison: before and after clip</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P028</span>
+    <span class="test-title">小さいウィンドウ移動</span>
+    <span class="persona">最小ウィンドウテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。非常に小さいウィンドウ（例: 100x100）がディスプレイ1に存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>小さいウィンドウ（100x100程度）を作成し、ディスプレイ1に配置する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>ウィンドウがディスプレイ2に正常に移動することを確認する</li>
+      <li>ウィンドウサイズが変わらないことを確認する（クリップ不要なため）</li>
+      <li>位置が相対的に正しいことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>小さいウィンドウは問題なく移動される。クリップ条件に該当しないためサイズは変わらない。listWindows()のサイズフィルタ（width &lt; 1 || height &lt; 1）に該当しないため除外されない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 小さいウィンドウの移動前後</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P029</span>
+    <span class="test-title">タイトル保持</span>
+    <span class="persona">メタデータテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台のディスプレイ接続。タイトル付きウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finderで特定のフォルダを開く（例: 「Documents」）</li>
+      <li>ウィンドウタイトルが「Documents」であることを確認する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>移動後のウィンドウタイトルが「Documents」のままであることを確認する</li>
+      <li>AXTitleAttributeをAccessibility Inspectorで確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SpinShelfはAXPositionAttributeとAXSizeAttributeのみを変更する。AXTitleAttributeは読み取り専用で取得するのみ。ウィンドウタイトルは一切変更されない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: ウィンドウタイトル比較（移動前後）</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c03">P030</span>
+    <span class="test-title">フェードアニメーション</span>
+    <span class="persona">アニメーションテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>異なる解像度のディスプレイ2台接続。フロントウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>異なる解像度のディスプレイ間でウィンドウを配置する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>フロントウィンドウがフェードアウトすることを目視確認する（CGSSetWindowAlpha: 1.0→0.75→0.5→0.25→0.0）</li>
+      <li>ウィンドウが移動先に現れ、フェードインすることを確認する（0.0→0.25→0.5→0.75→1.0）</li>
+      <li>背面ウィンドウはフェードなしでインスタント移動（透明化→移動→復元）されることを確認する</li>
+      <li>アニメーション完了後、全ウィンドウのalpha値が1.0に戻っていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>moveWindowWithFade()は4ステップフェード（25msインターバル）でフェードアウト/インを実行する。moveWindowInstant()はalpha=0→移動→alpha=1で瞬間的に移動する。Phase 1（前面）→ Phase 2（背面）の順で処理される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screen recording: フェードアニメーション / Slow motion capture</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 04: 入力/ジェスチャー -->
+<!-- ============================================================ -->
+<details class="category" id="cat04">
+<summary class="b04"><span class="cat-badge c04">CAT-04</span>入力/ジェスチャー (P031 - P040)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P031</span>
+    <span class="test-title">デフォルトショートカット動作</span>
+    <span class="persona">入力テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelfを初回起動（UserDefaults未設定）。2台のディスプレイ接続。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>UserDefaultsをクリア（defaults delete SpinShelf）してSpinShelfを起動する</li>
+      <li>ログに「Input monitoring started (Left: ⌃⇧←, Right: ⌃⇧→)」が出力されることを確認する</li>
+      <li>Ctrl+Shift+→ を押し、右回転が動作することを確認する</li>
+      <li>Ctrl+Shift+← を押し、左回転が動作することを確認する</li>
+      <li>デフォルトショートカットがkVK_LeftArrow/kVK_RightArrow + maskControl + maskShiftであることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SettingsManager.init()でデフォルトショートカットとしてCtrl+Shift+←/→が設定される。CGEventTapが正しくこのキーコンビネーションを検出する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: デフォルトショートカット情報</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P032</span>
+    <span class="test-title">カスタムショートカット</span>
+    <span class="persona">ショートカットテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。設定ウィンドウにアクセス可能。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウを開く（メニュー→Settings または Cmd+,）</li>
+      <li>「Rotate Right」のショートカットフィールドをクリックする</li>
+      <li>「Type shortcut...」と表示されることを確認する</li>
+      <li>Cmd+Option+→ を押す</li>
+      <li>フィールドに「⌥⌘→」と表示されることを確認する</li>
+      <li>同様に「Rotate Left」をCmd+Option+← に変更する</li>
+      <li>設定ウィンドウを閉じる</li>
+      <li>新しいショートカット（Cmd+Option+→/←）で回転が動作することを確認する</li>
+      <li>旧ショートカット（Ctrl+Shift+→/←）で回転が動作しないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>ShortcutRecorderNSViewでキー入力をキャプチャし、SettingsManager.Shortcutに変換してUserDefaultsに保存する。GestureDetectorのhandleKeyEvent()が新しいkeyCode/modifiersでマッチングを行う。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: カスタムショートカット設定後 / Console log</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P033</span>
+    <span class="test-title">修飾キーのみで反応なし</span>
+    <span class="persona">修飾キーテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。デフォルトショートカット設定。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Ctrlキーのみを押す</li>
+      <li>Shiftキーのみを押す</li>
+      <li>Ctrl+Shiftを同時に押す（矢印キーなし）</li>
+      <li>いずれの場合もウィンドウ回転が発生しないことを確認する</li>
+      <li>コンソールログに「detected」メッセージが出力されないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>CGEventTapはkeyDownイベントのみを監視。修飾キー単独はflagsChangedイベントであり、keyDownイベントマスクに含まれないため検出されない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: no "detected" messages</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P034</span>
+    <span class="test-title">間違った修飾キー組み合わせ</span>
+    <span class="persona">誤操作テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。デフォルトショートカット（Ctrl+Shift+矢印）。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Cmd+Shift+→ を押す（Ctrlの代わりにCmd）</li>
+      <li>回転が発生しないことを確認する</li>
+      <li>Ctrl+→ を押す（Shiftなし）</li>
+      <li>回転が発生しないことを確認する</li>
+      <li>Ctrl+Shift+Cmd+→ を押す（余分なCmdキー）</li>
+      <li>回転が発生しないことを確認する（relevantFlagsの完全一致チェック）</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>handleKeyEvent()でrelevantFlags == UInt64(shortcut.modifiers) の完全一致チェックが行われるため、修飾キーの不一致では反応しない。余分な修飾キーがある場合も不一致となる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: no rotation triggered</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P035</span>
+    <span class="test-title">修飾キー+横スクロール</span>
+    <span class="persona">ジェスチャーテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。トラックパッドが利用可能。2台のディスプレイ接続。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Ctrl+Shiftキーを押しながら、トラックパッドで右方向に大きくスワイプする</li>
+      <li>ウィンドウが右回転（次のディスプレイへ移動）することを確認する</li>
+      <li>Ctrl+Shiftキーを押しながら、トラックパッドで左方向にスワイプする</li>
+      <li>ウィンドウが左回転（前のディスプレイへ移動）することを確認する</li>
+      <li>スクロール量の閾値確認: abs(deltaX) &gt; 10 であること</li>
+      <li>方向判定確認: abs(deltaX) &gt; abs(deltaY) * 2 で横スクロールが優勢であること</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>NSEvent.addGlobalMonitorForEventsでscrollWheelイベントを監視。修飾キーがrotateRightShortcutのmodifiersと一致し、横スクロール量が閾値を超える場合にonSwipeが呼ばれる。deltaX &gt; 0 で.left、deltaX &lt; 0 で.right。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screen recording: トラックパッドジェスチャーによる回転</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P036</span>
+    <span class="test-title">スクロールクールダウン</span>
+    <span class="persona">タイミングテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。トラックパッドが利用可能。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Ctrl+Shift+横スクロールで回転を発動する</li>
+      <li>即座に（0.5秒以内に）同じジェスチャーを繰り返す</li>
+      <li>2回目の回転が発動しないことを確認する</li>
+      <li>0.5秒以上待ってから再度ジェスチャーを行う</li>
+      <li>回転が正常に発動することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>scrollCooldown = 0.5秒のガード（now - lastScrollTime &ge; scrollCooldown）により、連続スクロールによる誤操作が防止される。0.5秒経過後は正常に動作する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: タイムスタンプ付きイベントログ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P037</span>
+    <span class="test-title">縦スクロール無視</span>
+    <span class="persona">方向テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。トラックパッドが利用可能。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Ctrl+Shiftを押しながらトラックパッドで縦方向にスクロールする</li>
+      <li>回転が発動しないことを確認する</li>
+      <li>斜め方向（縦成分が横成分の2倍以上）にスクロールする</li>
+      <li>回転が発動しないことを確認する（abs(deltaX) &gt; abs(deltaY) * 2 条件を満たさないため）</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>startScrollMonitor()の条件「abs(deltaX) &gt; abs(event.scrollingDeltaY) * 2」により、縦スクロールや斜めスクロールでは回転が発動しない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: no rotation triggered for vertical scroll</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P038</span>
+    <span class="test-title">高速連続入力の再入防止</span>
+    <span class="persona">連打テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。2台のディスプレイ接続。多数のウィンドウが存在。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Ctrl+Shift+→ を高速で5回連続入力する（キーリピート速度）</li>
+      <li>コンソールログで「Rotating right」の出力回数を確認する</li>
+      <li>回転が順番に処理され、前の回転が完了してから次の回転が開始されることを確認する</li>
+      <li>isRotatingフラグによって回転中の再入が防止されることを確認する</li>
+      <li>アプリがクラッシュしないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>OSAllocatedUnfairLock によるスレッドセーフな再入防止。lock.withLock でisRotatingフラグをチェックし、回転中は新しい回転リクエストを無視する。回転完了時にbackGroup.notify でフラグを解除。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: 再入防止の動作証拠</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P039</span>
+    <span class="test-title">他キー同時押し非干渉</span>
+    <span class="persona">同時押しテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。他のアプリケーションがフォアグラウンドにある。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>テキストエディタを開き、テキスト入力中であることを確認する</li>
+      <li>Cmd+C（コピー）を押し、正常に動作することを確認する</li>
+      <li>Ctrl+Shift+→ を押し、SpinShelfの回転が動作することを確認する</li>
+      <li>回転後もテキストエディタが正常に動作することを確認する</li>
+      <li>SpinShelfに関係ないショートカット（Cmd+Z, Cmd+Sなど）が正常に他アプリに渡されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>handleKeyEvent() はSpinShelfのショートカットに一致しないキーイベントに対してUnmanaged.passUnretained(event) を返し、イベントを他アプリに渡す。SpinShelfのショートカットに一致する場合のみ nil を返してイベントを消費する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Verification: 他アプリのショートカットが正常動作すること</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c04">P040</span>
+    <span class="test-title">CGEventTap回復</span>
+    <span class="persona">イベントタップテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。アクセシビリティ権限が付与済み。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfが正常に動作していることを確認する</li>
+      <li>システム環境設定 → セキュリティとプライバシー → アクセシビリティ でSpinShelfの権限を一時的にオフにする</li>
+      <li>CGEventTapの無効化がログに記録されることを確認する</li>
+      <li>権限を再びオンにする</li>
+      <li>SpinShelfを再起動し、CGEventTapが再作成されることを確認する</li>
+      <li>ログに「Input monitoring started」が出力されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>CGEventTapの作成に失敗した場合「Failed to create CGEventTap. Check Accessibility permission.」がログに出力される。権限回復後にアプリを再起動すれば正常にCGEventTapが作成される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: CGEventTap failure and recovery messages</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 05: 設定 -->
+<!-- ============================================================ -->
+<details class="category" id="cat05">
+<summary class="b05"><span class="cat-badge c05">CAT-05</span>設定 (P041 - P050)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P041</span>
+    <span class="test-title">設定ウィンドウ表示</span>
+    <span class="persona">設定画面テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーのSpinShelfアイコンをクリックする</li>
+      <li>「Settings...」をクリックする（または Cmd+, を押す）</li>
+      <li>設定ウィンドウが表示されることを確認する</li>
+      <li>ウィンドウタイトルが「SpinShelf Settings」であることを確認する</li>
+      <li>ウィンドウサイズが460x580であることを確認する</li>
+      <li>3つのセクションが表示されることを確認する:「Display Rotation Order」「Keyboard Shortcuts」「General」</li>
+      <li>ウィンドウが画面中央に表示されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SettingsWindowController.show()がNSWindowを作成し、NSHostingView(rootView: SettingsView()) をcontentViewに設定。window.center() で画面中央に配置。.titled, .closable スタイルマスク。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 設定ウィンドウ全体</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P042</span>
+    <span class="test-title">ショートカット変更保存</span>
+    <span class="persona">キー変更テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>「Rotate Right」のショートカットフィールドをクリックする</li>
+      <li>Cmd+Shift+→ を押して新しいショートカットを設定する</li>
+      <li>設定ウィンドウを閉じる</li>
+      <li>UserDefaultsの「rotateRightShortcut」キーにデータが保存されていることを確認する</li>
+      <li>SpinShelfを終了し、再起動する</li>
+      <li>設定ウィンドウを開き、変更したショートカットが保持されていることを確認する</li>
+      <li>変更したショートカットで回転が動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SettingsManager.rotateRightShortcutのdidSet でsave()が呼ばれ、JSONEncoderでUserDefaultsに永続化される。再起動時にinit()でJSONDecoderで読み込まれる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">UserDefaults dump / Settings window screenshot after restart</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P043</span>
+    <span class="test-title">ショートカット記号表示</span>
+    <span class="persona">表示テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>デフォルトショートカットの表示を確認する: ⌃⇧← と ⌃⇧→</li>
+      <li>ショートカットをCmd+Option+A に変更する</li>
+      <li>表示が「⌥⌘A」であることを確認する</li>
+      <li>矢印キーのUnicode表示が正しいことを確認する: ← (\u2190), → (\u2192), ↑ (\u2191), ↓ (\u2193)</li>
+      <li>修飾キーの記号が正しいことを確認する: ⌃ (Control), ⌥ (Option), ⇧ (Shift), ⌘ (Command)</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>Shortcut.displayStringが修飾キーのUnicode記号とキーコードの文字表現を正しく結合する。keyCodeToStringがkVK_LeftArrowなどの特殊キーをUnicode矢印文字に変換する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 各種ショートカット記号表示</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P044</span>
+    <span class="test-title">ディスプレイ順序UI変更</span>
+    <span class="persona">順序設定テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>3台のディスプレイ接続。設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウのディスプレイレイアウトビューに3台が表示されていることを確認する</li>
+      <li>「Set Order」ボタンをクリックする</li>
+      <li>青い枠線がレイアウトビューの周りに表示されることを確認する</li>
+      <li>「Click displays in the order you want them to rotate」の説明テキストが表示されることを確認する</li>
+      <li>ディスプレイを順番にクリックする（例: 右→左→中央）</li>
+      <li>クリックするたびに番号バッジが表示されることを確認する</li>
+      <li>「Selected 2/3」のようなカウント表示が更新されることを確認する</li>
+      <li>3台全てクリックすると自動確定されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>isSettingOrder状態でDisplayLayoutViewがクリック可能になる。handleDisplayClick()でpendingOrderに追加。全ディスプレイ選択時にapplyPendingOrder()が自動呼出しされる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 順序設定UIの各ステップ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P045</span>
+    <span class="test-title">ディスプレイ識別番号表示</span>
+    <span class="persona">識別テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>2台以上のディスプレイ接続。設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウの「Identify」ボタンをクリックする</li>
+      <li>各物理ディスプレイの画面上に識別番号が大きく表示されることを確認する</li>
+      <li>番号がrotationOrderの順番と一致することを確認する</li>
+      <li>数秒後に識別番号表示が自動的に消えることを確認する</li>
+      <li>DisplayIdentifier.show()が正しいディスプレイに正しい番号を表示していることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>DisplayIdentifierが各ディスプレイのCGDisplayBounds上にオーバーレイウィンドウを表示。rotationOrderに基づいた番号が表示される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Photo: 物理ディスプレイ上の識別番号表示</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P046</span>
+    <span class="test-title">ログイン時起動設定</span>
+    <span class="persona">起動設定テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウの「General」セクションを確認する</li>
+      <li>「Launch at Login」トグルスイッチを確認する</li>
+      <li>トグルをオンにする</li>
+      <li>UserDefaultsの「launchAtLogin」キーがtrueに設定されることを確認する</li>
+      <li>トグルをオフにする</li>
+      <li>UserDefaultsの「launchAtLogin」キーがfalseに設定されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SettingsManager.launchAtLoginのdidSetでUserDefaults.standard.set(launchAtLogin, forKey: "launchAtLogin")が呼ばれる。トグルのUI状態とUserDefaultsの値が同期する。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: トグルのオン/オフ状態</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P047</span>
+    <span class="test-title">アプリ再起動後設定保持</span>
+    <span class="persona">永続化テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>ショートカット、ディスプレイ順序、ログイン時起動の全設定を変更済み。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ショートカットをカスタム値に変更する</li>
+      <li>ディスプレイ順序をカスタムに設定する</li>
+      <li>「Launch at Login」をオンにする</li>
+      <li>SpinShelfを終了する（Cmd+Q）</li>
+      <li>SpinShelfを再起動する</li>
+      <li>設定ウィンドウを開き、全設定が保持されていることを確認する</li>
+      <li>カスタムショートカットで回転が動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>SettingsManager.init()がUserDefaultsからrotateLeftShortcut、rotateRightShortcut、displayOrder、launchAtLoginを読み込む。JSONDecodeが成功し、全設定値が復元される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: 再起動後の設定ウィンドウ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P048</span>
+    <span class="test-title">ディスプレイ順序リセット</span>
+    <span class="persona">リセットテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>カスタムディスプレイ順序が設定済み。設定ウィンドウが開いている。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>カスタムディスプレイ順序（例: 2→0→1）が設定されていることを確認する</li>
+      <li>「Reset」ボタンをクリックする</li>
+      <li>settings.displayOrderが空配列[]になることを確認する</li>
+      <li>loadDisplays()が呼ばれ、X座標順のデフォルト順序に戻ることを確認する</li>
+      <li>巡回順テキストが「1 → 2 → 3 → 1 (loop)」のデフォルト表示に戻ることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>settings.displayOrder = [] が設定され、saveDisplayOrder()で空配列がUserDefaultsに保存される。applyDisplayOrder()でsavedOrderが空の場合、allDisplaysがそのまま返される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: リセット前後のディスプレイ順序表示</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P049</span>
+    <span class="test-title">アップデート確認機能</span>
+    <span class="persona">アップデートテスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。インターネット接続あり。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーから「Check for Updates」をクリックする</li>
+      <li>GitHub APIへのリクエストが送信されることを確認する（ネットワークモニター）</li>
+      <li>最新版の場合:「You're Up to Date - SpinShelf 0.1.0 is the latest version.」ダイアログが表示されることを確認する</li>
+      <li>設定ウィンドウの「Check for Updates」リンクからも同じ動作が行われることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>UpdateChecker.check()がGitHub Releases APIにリクエストし、tag_nameのバージョンとcurrentVersionを比較する。isNewer()でセマンティックバージョン比較が行われる。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Screenshot: アップデート確認ダイアログ</div>
+  </div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header">
+    <span class="test-id c05">P050</span>
+    <span class="test-title">設定変更中ショートカット動作</span>
+    <span class="persona">並行テスター</span>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>設定ウィンドウが開いている。2台のディスプレイ接続。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウを開いた状態にする</li>
+      <li>ショートカットレコーダーを「Type shortcut...」状態にしない（非録音中）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>回転が正常に動作することを確認する（設定ウィンドウが開いていても動作する）</li>
+      <li>ショートカットレコーダーを録音中にする（クリック）</li>
+      <li>録音中はCtrl+Shift+→がショートカット設定に使われ、回転が発動しないことを確認する（NSEvent.addLocalMonitorがイベントを消費するため）</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>設定ウィンドウが開いていてもCGEventTapは動作する。ただしShortcutRecorderが録音中の場合、NSEvent.addLocalMonitorForEventsがnilを返してイベントを消費するため、CGEventTapには到達しない。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Console log: 設定ウィンドウ開閉中の動作</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 06: パフォーマンス/負荷 -->
+<!-- ============================================================ -->
+<details class="category" id="cat06">
+<summary class="b06"><span class="cat-badge c06">CAT-06</span>パフォーマンス/負荷 (P051 - P058)<span class="cat-count-badge">8 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P051</span><span class="test-title">回転1秒以内完了</span><span class="persona">パフォーマンステスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。5個程度のウィンドウが存在。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>5個のウィンドウを各ディスプレイに配置する</li>
+      <li>コンソールログのタイムスタンプを記録する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>「Rotating right」から「Rotation complete」までの経過時間を測定する</li>
+      <li>同一解像度と異なる解像度の両方でテストする</li>
+      <li>経過時間が1秒以内であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>同一解像度間ではsetPosition()のみで高速。異解像度ではフェード（4x25ms=100ms）+移動で約200-300ms程度。DispatchQueueのconcurrentにより並列処理されるため1秒以内に完了する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Timing data: ログのタイムスタンプ差</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P052</span><span class="test-title">20+ウィンドウ正常動作</span><span class="persona">負荷テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Finder、Safari、Terminal等で合計20個以上のウィンドウを開く</li>
+      <li>各ディスプレイに分散して配置する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>全ウィンドウが正常に移動することを確認する</li>
+      <li>クラッシュやフリーズが発生しないことを確認する</li>
+      <li>移動完了までの時間が許容範囲内（3秒以内）であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>listWindows()が20個以上のウィンドウを正しく列挙し、全てが移動対象としてtasksに追加される。concurrentキューで並列処理されるためパフォーマンス劣化は軽微。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: window count / Timing data</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P053</span><span class="test-title">メモリリークなし</span><span class="persona">メモリテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。Instruments（Leaks）が利用可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>InstrumentsのLeaksプロファイラをSpinShelfにアタッチする</li>
+      <li>起動直後のメモリ使用量を記録する</li>
+      <li>Ctrl+Shift+→ を20回繰り返す</li>
+      <li>メモリ使用量を再記録する</li>
+      <li>Leaksが検出されていないことを確認する</li>
+      <li>メモリ使用量が大幅に増加していないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>AXUIElement参照はrotate()のスコープ内で使い捨て。[weak self]パターンでクロージャの循環参照を防止。OSAllocatedUnfairLockは値型で安全。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Instruments Leaks report / Memory graph</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P054</span><span class="test-title">アイドルCPU1%以下</span><span class="persona">CPUテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。操作なしのアイドル状態。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfを起動する</li>
+      <li>30秒間何も操作しない</li>
+      <li>Activity MonitorでSpinShelfのCPU使用率を確認する</li>
+      <li>CPU使用率が1%以下であることを確認する</li>
+      <li><code>top -pid $(pgrep SpinShelf) -l 1</code> でも確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>CGEventTapはイベント駆動でポーリングしない。NSEvent.addGlobalMonitorもイベント駆動。アイドル時のCPU消費はほぼゼロ。PermissionManager.pollTimerは権限付与後にcancel()される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Activity Monitor screenshot / top command output</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P055</span><span class="test-title">50回連続回転</span><span class="persona">ストレステスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。複数ウィンドウ存在。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>自動化スクリプトで Ctrl+Shift+→ を50回連続で実行する（各回転の完了を待って次を実行）</li>
+      <li>全50回の回転が正常に完了することを確認する</li>
+      <li>50回目の回転後、ウィンドウが正しい位置にあることを確認する（2画面の場合、偶数回で元に戻る）</li>
+      <li>コンソールログにエラーが出力されていないことを確認する</li>
+      <li>メモリ使用量が初回と大きく変わらないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>50回の回転が全てエラーなく完了する。再入防止ロックが正しく動作し、各回転が順番に処理される。メモリリークなし。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: 50回分の Rotation complete / Memory usage graph</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P056</span><span class="test-title">5K/6K対応</span><span class="persona">高解像度テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>5K以上のディスプレイ（例: Apple Pro Display XDR 6016x3384）が接続されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>5K/6Kディスプレイと通常解像度ディスプレイを接続する</li>
+      <li>SpinShelfを起動する</li>
+      <li>ログに正しい解像度情報が出力されることを確認する</li>
+      <li>Ctrl+Shift+→ で回転を実行する</li>
+      <li>大きな座標値での計算が正しいことを確認する（CGFloat精度）</li>
+      <li>ウィンドウのリサイズが正常に動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>CGFloat（Double）の精度で5K/6K解像度の座標計算に問題なし。CGDisplayBoundsが正しいフレームサイズを返す。visibleFrame変換が大きな座標値でも正確。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: 高解像度ディスプレイ情報</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P057</span><span class="test-title">ウィンドウ数増加の性能</span><span class="persona">スケーリングテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ウィンドウ5個で回転時間を測定する</li>
+      <li>ウィンドウ10個で回転時間を測定する</li>
+      <li>ウィンドウ15個で回転時間を測定する</li>
+      <li>ウィンドウ20個で回転時間を測定する</li>
+      <li>ウィンドウ数の増加に対して回転時間がリニアに増加するか確認する</li>
+      <li>concurrentキューの並列処理により、増加が緩やかであることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>DispatchQueue(.concurrent)により複数ウィンドウが並列で移動される。Phase 1（前面）は各ディスプレイ1個ずつなのでO(display数)。Phase 2（背面）は並列処理されるためウィンドウ数増加の影響は限定的。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Chart: ウィンドウ数 vs 回転時間</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c06">P058</span><span class="test-title">回転中の別操作</span><span class="persona">並行操作テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。複数ウィンドウ存在。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>回転を開始する（Ctrl+Shift+→）</li>
+      <li>回転アニメーション中にウィンドウをドラッグしようとする</li>
+      <li>回転が完了するまで待つ</li>
+      <li>ウィンドウ操作が回転後に正常に行えることを確認する</li>
+      <li>回転中にアプリの起動/終了を行い、クラッシュしないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>isRotatingフラグにより新しい回転リクエストは無視される。ユーザーのウィンドウ操作（ドラッグ等）は回転処理とは独立したAXUIElement操作のため、競合する可能性があるが、回転完了後に正常状態に戻る。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Manual observation during rotation animation</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 07: 異常系/エッジケース -->
+<!-- ============================================================ -->
+<details class="category" id="cat07">
+<summary class="b07"><span class="cat-badge c07">CAT-07</span>異常系/エッジケース (P059 - P068)<span class="cat-count-badge">10 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P059</span><span class="test-title">ウィンドウ0個で回転</span><span class="persona">ゼロ状態テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。全ウィンドウを閉じるか最小化した状態。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>全ウィンドウを閉じるか最小化する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>ログに「Rotating right with 0 windows」が出力されることを確認する</li>
+      <li>クラッシュやエラーが発生しないことを確認する</li>
+      <li>tasks配列が空のためfrontGroup/backGroupの処理がスキップされることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>windows = windowManager.listWindows() が空配列を返す。tasks配列も空。DispatchGroupのenter()/leave()が呼ばれないためwait()/notify()は即座に完了。isRotatingフラグが正しく解除される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: "0 windows" message</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P060</span><span class="test-title">回転中ウィンドウ閉じ</span><span class="persona">レースコンディションテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。複数ウィンドウ存在。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>多数のウィンドウを開く（10個以上で回転時間を稼ぐ）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>回転アニメーション中にウィンドウの1つをCmd+Wで閉じる</li>
+      <li>AXUIElementSetAttributeValueの戻り値エラーが発生しても、クラッシュしないことを確認する</li>
+      <li>他のウィンドウの移動が正常に完了することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>AXUIElementSetAttributeValueは閉じられたウィンドウに対してエラーを返すが、戻り値はチェックされないためクラッシュしない。他のウィンドウの移動は影響を受けない。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Manual test: no crash observed</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P061</span><span class="test-title">クラッシュ後再起動</span><span class="persona">クラッシュテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfプロセスを強制終了する（kill -9）</li>
+      <li>SpinShelfを再起動する</li>
+      <li>メニューバーアイコンが表示されることを確認する</li>
+      <li>CGEventTapが正常に作成されることを確認する</li>
+      <li>設定が保持されていることを確認する（UserDefaultsは別途永続化されるため）</li>
+      <li>回転が正常に動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>強制終了後も再起動すれば正常に動作する。UserDefaultsはプロセス外に永続化されるため設定は保持される。CGEventTapは新しいプロセスで再作成される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: clean restart after force kill</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P062</span><span class="test-title">回転中ディスプレイ切断</span><span class="persona">切断テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台の外部ディスプレイが接続。SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>回転を開始する（Ctrl+Shift+→）</li>
+      <li>回転アニメーション中に外部ディスプレイのケーブルを抜く</li>
+      <li>クラッシュが発生しないことを確認する</li>
+      <li>「Display configuration changed」がログに出力されることを確認する</li>
+      <li>移動先ディスプレイが消えた場合、ウィンドウがmacOSにより内蔵ディスプレイに移されることを確認する</li>
+      <li>ディスプレイを再接続後、正常に動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>rotate()はスナップショットベース（回転開始時のdisplays）で動作するため、回転中のディスプレイ切断による直接的なクラッシュはない。AXUIElement操作のエラーは無視される。macOSが残存ウィンドウを自動的に再配置する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Manual test: no crash during disconnect</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P063</span><span class="test-title">サイズ0ウィンドウスキップ</span><span class="persona">ゼロサイズテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>一部のアプリがサイズ0の不可視ウィンドウを持つ環境。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfを起動する</li>
+      <li>通常のアプリウィンドウに加え、一部アプリが不可視（サイズ0）のヘルパーウィンドウを持つ環境を確認する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>サイズ0のウィンドウが移動対象から除外されていることをログで確認する</li>
+      <li>可視ウィンドウのみが正常に移動することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>getWindowInfo()内の「if size.width &lt; 1 || size.height &lt; 1 { return nil }」によりサイズ0のウィンドウはnilとなり、listWindows()の結果から除外される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: filtered window count</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P064</span><span class="test-title">スクリーンセーバー中</span><span class="persona">スクリーンセーバーテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>スクリーンセーバーが設定されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>スクリーンセーバーを起動する（ホットコーナーまたは待機時間）</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>スクリーンセーバーが解除されるか、キーイベントがスクリーンセーバーに消費されるか確認する</li>
+      <li>スクリーンセーバー解除後、SpinShelfが正常に動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>スクリーンセーバー中はCGEventTapが受信したキーイベントでスクリーンセーバーが解除される。解除後のキー入力でSpinShelfが正常に動作する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Manual test observation</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P065</span><span class="test-title">スリープ→復帰後</span><span class="persona">スリープテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfが正常に動作していることを確認する</li>
+      <li>Macをスリープさせる（Apple メニュー → スリープ）</li>
+      <li>数秒後にスリープから復帰する</li>
+      <li>「Display configuration changed」がログに出力されることを確認する（ディスプレイ再検出）</li>
+      <li>Ctrl+Shift+→ でウィンドウ回転が正常に動作することを確認する</li>
+      <li>CGEventTapが引き続き動作していることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>スリープ復帰時にdidChangeScreenParametersNotificationが発火し、refreshDisplays()でディスプレイ情報が再取得される。CGEventTapはスリープを通じて維持される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: sleep/wake cycle events</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P066</span><span class="test-title">Mission Control中動作</span><span class="persona">Mission Controlテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Mission Controlを起動する（F3 または Ctrl+↑）</li>
+      <li>Mission Controlが表示された状態でCtrl+Shift+→ を押す</li>
+      <li>Mission Controlが閉じた後、ウィンドウの状態を確認する</li>
+      <li>回転が実行されたかどうかを確認する</li>
+      <li>Mission Controlを閉じてから再度Ctrl+Shift+→ を押し、正常に回転することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>Mission Control表示中はウィンドウの位置が特殊な状態になるため、回転の動作は予測不能。Mission Control終了後は正常に動作する。CGEventTapはMission Control中もキーイベントを受信する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Manual test: Mission Control interaction</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P067</span><span class="test-title">仮想デスクトップ非干渉</span><span class="persona">Spacesテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>複数のSpaces（仮想デスクトップ）が設定されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Space 1にFinderウィンドウを配置する</li>
+      <li>Space 2にSafariウィンドウを配置する</li>
+      <li>Space 1でCtrl+Shift+→ を押す</li>
+      <li>Space 1のFinderウィンドウが回転することを確認する</li>
+      <li>Space 2のSafariウィンドウが影響を受けないことを確認する</li>
+      <li>CGWindowListCopyWindowInfoの[.optionOnScreenOnly]フィルタにより、現在のSpaceのウィンドウのみが対象になることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>CGWindowListCopyWindowInfo(.optionOnScreenOnly)は現在表示中のウィンドウのみを返す。他のSpacesのウィンドウは含まれないため、影響を受けない。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Verification: other Space windows unaffected</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c07">P068</span><span class="test-title">Dock位置変更対応</span><span class="persona">Dock/メニューバーテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Dockを下に配置した状態でウィンドウを回転する</li>
+      <li>ウィンドウがDockに重ならないことを確認する（visibleFrameを使用しているため）</li>
+      <li>システム環境設定でDockの位置を左に変更する</li>
+      <li>didChangeScreenParametersNotificationが発火し、visibleFrameが更新されることを確認する</li>
+      <li>再度回転し、ウィンドウがDockに重ならないことを確認する</li>
+      <li>Dockを右に変更し、同様に確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>DisplayManager.refreshDisplays()でNSScreen.visibleFrame（Dock/メニューバー除外済み）をCGDisplay座標系に変換して使用。Dock位置変更時にvisibleFrameが更新され、ウィンドウ移動先がDockと重ならない。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: Dock位置変更前後のウィンドウ配置</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 08: UI/UX -->
+<!-- ============================================================ -->
+<details class="category" id="cat08">
+<summary class="b08"><span class="cat-badge c08">CAT-08</span>UI/UX (P069 - P076)<span class="cat-count-badge">8 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P069</span><span class="test-title">ダーク/ライトモードアイコン</span><span class="persona">視認性テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定でライトモードに設定する</li>
+      <li>メニューバーのSpinShelfアイコンが明確に視認できることを確認する</li>
+      <li>ダークモードに切り替える</li>
+      <li>メニューバーのSpinShelfアイコンがダーク背景上で明確に視認できることを確認する</li>
+      <li>SF Symbols（arrow.left.arrow.right.square）が両モードで適切なコントラストを持つことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>NSImage(systemSymbolName:) で生成されるSF Symbolsはシステムの外観設定に自動的に適応する。ライトモードでは黒、ダークモードでは白で描画される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: ライトモード/ダークモードのアイコン比較</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P070</span><span class="test-title">設定ウィンドウレイアウト</span><span class="persona">レイアウトテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>設定ウィンドウが表示されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウのレイアウトを確認する</li>
+      <li>ヘッダー「Settings」が上部に表示されていることを確認する</li>
+      <li>Dividerで区切られていることを確認する</li>
+      <li>ScrollView内に3つのセクションが配置されていることを確認する</li>
+      <li>各セクションのフォントサイズ・色・余白が統一されていることを確認する</li>
+      <li>ウィンドウサイズが460x580で固定されていることを確認する（リサイズ不可）</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>.frame(width: 460, height: 580) で固定サイズ。VStack(alignment: .leading, spacing: 24) で統一されたレイアウト。.headline フォントのセクションタイトル。24pxのパディング。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 設定ウィンドウの全体レイアウト</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P071</span><span class="test-title">Aboutダイアログ内容</span><span class="persona">Aboutテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーから「About SpinShelf」をクリックする</li>
+      <li>NSAlertダイアログが表示されることを確認する</li>
+      <li>messageTextが「SpinShelf」であることを確認する</li>
+      <li>informativeTextがL10n.aboutTextの内容であることを確認する</li>
+      <li>alertStyleが.informationalであることを確認する</li>
+      <li>「OK」ボタンでダイアログが閉じることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>showAbout()がNSAlert()を生成し、L10n.aboutTextをinformativeTextに設定。runModal()でモーダル表示。ローカライズされたテキストが表示される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: Aboutダイアログ</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P072</span><span class="test-title">メニュー項目表示</span><span class="persona">メニューテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーのSpinShelfアイコンをクリックする</li>
+      <li>各メニュー項目のタイトルがL10nの値と一致することを確認する</li>
+      <li>各メニュー項目のSF Symbolsアイコンが表示されることを確認する</li>
+      <li>セパレータが適切な位置に表示されていることを確認する</li>
+      <li>ショートカットキー表示がメニュー項目の右側に表示されていることを確認する</li>
+      <li>メニューの表示速度が即座であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>rebuildMenu()で構築されたNSMenuが全7項目+2セパレータで構成される。setMenuShortcut()でショートカット表示が設定される。UserDefaults.didChangeNotificationでメニューが動的に再構築される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: メニュー全体</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P073</span><span class="test-title">メニューからの回転</span><span class="persona">メニュー操作テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューバーのSpinShelfアイコンをクリックする</li>
+      <li>「Rotate Right」をクリックする</li>
+      <li>ウィンドウが右回転することを確認する</li>
+      <li>メニューバーのSpinShelfアイコンを再度クリックする</li>
+      <li>「Rotate Left」をクリックする</li>
+      <li>ウィンドウが左回転することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>rotateRight()がcarouselController?.rotateFromMenu(direction: .right) を呼び、rotateLeft()が.leftを呼ぶ。キーボードショートカットと同じrotate()メソッドが実行される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: menu-triggered rotation</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P074</span><span class="test-title">回転時フェード</span><span class="persona">フィードバックテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>異なる解像度のディスプレイ2台接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>異なる解像度のディスプレイ間でウィンドウを配置する</li>
+      <li>Ctrl+Shift+→ を押す</li>
+      <li>フロントウィンドウがスムーズにフェードアウト→フェードインすることを目視確認する</li>
+      <li>フェードのステップ数（4段階）が自然に見えることを確認する</li>
+      <li>フェード完了後にウィンドウが完全に不透明（alpha=1.0）に戻ることを確認する</li>
+      <li>背面ウィンドウは一瞬透明→即座に復元であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>CGSSetWindowAlphaによる4段階フェード（各25ms）で視覚的に滑らかな遷移。同一解像度ではフェードなし（座標変更のみ）で瞬間的。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screen recording: fade animation (slow motion if possible)</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P075</span><span class="test-title">キーボードナビゲーション</span><span class="persona">アクセシビリティテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>設定ウィンドウが表示されていること。キーボードアクセシビリティが有効。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウにフォーカスを当てる</li>
+      <li>Tabキーで各UI要素間を移動できることを確認する</li>
+      <li>ボタンがフォーカスリングで強調表示されることを確認する</li>
+      <li>SpaceキーまたはEnterキーでボタンを押下できることを確認する</li>
+      <li>トグルスイッチがスペースキーで切り替え可能であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>SwiftUIの標準コントロール（Button, Toggle）はキーボードナビゲーションをサポート。システムのフルキーボードアクセスが有効な場合、全コントロールがTabで到達可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: フォーカスリング表示</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c08">P076</span><span class="test-title">ディスプレイプレビュー</span><span class="persona">プレビューテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台以上のディスプレイ接続。設定ウィンドウが表示されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>設定ウィンドウのDisplayLayoutViewを確認する</li>
+      <li>各ディスプレイがRoundedRectangleで描画されていることを確認する</li>
+      <li>番号バッジ（Circle + Text）が正しく表示されていることを確認する</li>
+      <li>各ディスプレイの解像度ラベル（例: 2560x1440）が表示されていることを確認する</li>
+      <li>メインディスプレイに「Main」ラベルが表示されていることを確認する</li>
+      <li>ディスプレイの物理配置（X/Y座標）がミニチュア表示に反映されていることを確認する</li>
+      <li>カラーコーディング（Blue, Green, Orange, Purple, Pink, Red）が順番に適用されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>DisplayLayoutView.calcLayout()でディスプレイ配置をスケール計算し、160pxの高さ内にミニチュア表示する。colorForOrder()で0-5の色が巡回適用される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: DisplayLayoutView with multiple displays</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 09: ローカライゼーション -->
+<!-- ============================================================ -->
+<details class="category" id="cat09">
+<summary class="b09"><span class="cat-badge c09">CAT-09</span>ローカライゼーション (P077 - P081)<span class="cat-count-badge">5 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c09">P077</span><span class="test-title">英語ロケール確認</span><span class="persona">英語テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>macOSの言語設定が英語（English）であること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定で言語を英語に設定する</li>
+      <li>SpinShelfを起動する</li>
+      <li>メニュー項目が英語で表示されることを確認する:「Rotate Left」「Rotate Right」「Settings...」「Check for Updates」「About SpinShelf」「Quit」</li>
+      <li>設定ウィンドウのラベルが英語であることを確認する:「Settings」「Display Rotation Order」「Keyboard Shortcuts」「General」「Launch at Login」</li>
+      <li>Aboutダイアログが英語であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>L10n.bundleが「en.lproj」のバンドルをロードし、全テキストが英語で表示される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 英語UI全体</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c09">P078</span><span class="test-title">日本語ロケール確認</span><span class="persona">日本語テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>macOSの言語設定が日本語であること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定で言語を日本語に設定する</li>
+      <li>SpinShelfを起動する</li>
+      <li>メニュー項目が日本語で表示されることを確認する:「左に回転」「右に回転」「設定...」「アップデートを確認」「SpinShelf について」「終了」</li>
+      <li>設定ウィンドウのラベルが日本語であることを確認する:「設定」「ディスプレイ巡回順序」「キーボードショートカット」「一般」「ログイン時に起動」</li>
+      <li>Aboutダイアログが日本語であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>L10n.bundleが「ja.lproj」のバンドルをロードし、全テキストが日本語で表示される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 日本語UI全体</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c09">P079</span><span class="test-title">ロケール切替</span><span class="persona">ロケール切替テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>英語ロケールでSpinShelfを起動する</li>
+      <li>メニューが英語であることを確認する</li>
+      <li>システム環境設定で言語を日本語に変更する</li>
+      <li>SpinShelfを再起動する（L10n.bundleはstatic letのため起動時に決定）</li>
+      <li>メニューが日本語に変わっていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>L10n.bundleは起動時にLocale.preferredLanguagesから言語を決定する。再起動により新しいロケールが適用される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 言語切替前後のメニュー</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c09">P080</span><span class="test-title">長テキストレイアウト</span><span class="persona">テキスト長テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>設定ウィンドウが表示されていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>英語と日本語の両方で設定ウィンドウを確認する</li>
+      <li>日本語のテキスト（例:「ディスプレイ巡回順序」）がUIからはみ出していないことを確認する</li>
+      <li>ボタンラベル（「識別」「順序設定」「リセット」等）が切れていないことを確認する</li>
+      <li>メニュー項目の文字列がメニュー幅内に収まっていることを確認する</li>
+      <li>selectedCount（「%d/%d 選択済み」）の動的テキストがレイアウトを崩さないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>SwiftUIの自動レイアウトにより、テキスト長に応じてUI要素が適切にサイズ調整される。固定幅460pxのウィンドウ内で全テキストが収まる。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 日本語レイアウト比較</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c09">P081</span><span class="test-title">未翻訳キーフォールバック</span><span class="persona">フォールバックテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。サポートされていない言語ロケール（例: フランス語）に設定。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>macOSの言語をフランス語（日本語・英語以外）に設定する</li>
+      <li>SpinShelfを再起動する</li>
+      <li>L10n.bundleのフォールバック動作を確認する:
+        <br>- Locale.preferredLanguagesから順にlprojを検索
+        <br>- 該当なしの場合、Bundle.module（ベースバンドル）にフォールバック
+      </li>
+      <li>メニューやUIテキストが表示されること（キー名がそのまま表示されるか、ベースの翻訳が使われるか）を確認する</li>
+      <li>クラッシュが発生しないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>L10n.bundleのクロージャでfor文がmatchしない場合、base = Bundle.moduleが返される。NSLocalizedStringはキーに対応する翻訳がなければキー文字列をそのまま返す。クラッシュしない。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 非対応ロケールでのUI表示</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 10: セキュリティ/権限 -->
+<!-- ============================================================ -->
+<details class="category" id="cat10">
+<summary class="b10"><span class="cat-badge c10">CAT-10</span>セキュリティ/権限 (P082 - P086)<span class="cat-count-badge">5 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c10">P082</span><span class="test-title">アクセシビリティ権限要求</span><span class="persona">権限テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelfのアクセシビリティ権限が未付与。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>システム環境設定 → セキュリティとプライバシー → アクセシビリティ でSpinShelfを削除する</li>
+      <li>SpinShelfを起動する</li>
+      <li>macOSのアクセシビリティ権限要求ダイアログが表示されることを確認する</li>
+      <li>PermissionManager.checkAccessibility(prompt: true)が呼ばれていることを確認する</li>
+      <li>ログに「Waiting for Accessibility permission...」が出力されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>applicationDidFinishLaunching()でcheckAccessibility(prompt: true)を呼び、AXIsProcessTrustedWithOptions(kAXTrustedCheckOptionPrompt: true)がmacOSの権限ダイアログを表示する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: アクセシビリティ権限ダイアログ</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c10">P083</span><span class="test-title">権限拒否時エラー表示</span><span class="persona">拒否テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>アクセシビリティ権限が拒否された状態。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>アクセシビリティ権限を拒否した状態でSpinShelfを起動する</li>
+      <li>メニューバーアイコンは表示されるが、回転機能が無効であることを確認する</li>
+      <li>CGEventTap作成に失敗し、「Failed to create CGEventTap. Check Accessibility permission.」がログに出力されることを確認する</li>
+      <li>Ctrl+Shift+→ を押しても回転が発動しないことを確認する</li>
+      <li>アプリがクラッシュしないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>checkAccessibility() がfalseを返し、pollUntilGranted() が開始される。CGEvent.tapCreate()がnilを返し、startEventTap()がearly returnする。メニューバーは表示されるが回転機能は無効。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: permission denied messages</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c10">P084</span><span class="test-title">権限付与待ち</span><span class="persona">ポーリングテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>アクセシビリティ権限が未付与。SpinShelfが起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>権限未付与の状態でSpinShelfを起動する</li>
+      <li>ログに「Waiting for Accessibility permission...」が出力されることを確認する</li>
+      <li>システム環境設定でSpinShelfにアクセシビリティ権限を付与する</li>
+      <li>1秒以内に「Accessibility permission granted」がログに出力されることを確認する</li>
+      <li>startCarousel()が呼ばれ、「Carousel started」がログに出力されることを確認する</li>
+      <li>回転機能が正常に動作し始めることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>pollUntilGranted()が1秒間隔でcheckAccessibility(prompt: false)をポーリング。権限付与を検知するとtimer.cancel()でポーリングを停止し、コールバック（startCarousel()）を実行する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: permission polling and grant sequence</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c10">P085</span><span class="test-title">オフライン動作</span><span class="persona">ネットワークテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>ネットワーク接続を切断した状態。SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Wi-Fiをオフにし、Ethernetケーブルを抜く</li>
+      <li>SpinShelfを起動する</li>
+      <li>メニューバーアイコンが表示されることを確認する</li>
+      <li>回転機能が正常に動作することを確認する（ネットワーク不要）</li>
+      <li>「Check for Updates」をクリックする</li>
+      <li>「Update Check Failed」ダイアログが表示されることを確認する</li>
+      <li>アプリがクラッシュしないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>コア機能（回転）はネットワーク不要で動作する。UpdateChecker.check()のURLSession.dataTaskがエラーコールバックを返し、showError()が呼ばれる。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: オフライン時のアップデートチェックエラー</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c10">P086</span><span class="test-title">他アプリ設定非変更</span><span class="persona">サンドボックステスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。他のアプリケーションが起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>他のアプリ（Safari、Finder等）の設定・状態を記録する</li>
+      <li>SpinShelfでウィンドウ回転を10回実行する</li>
+      <li>他アプリの設定が変更されていないことを確認する</li>
+      <li>SpinShelfがAXUIElement APIを通じて変更するのはkAXPositionAttribute/kAXSizeAttributeのみであることを確認する</li>
+      <li>他アプリのUserDefaultsや設定ファイルに影響がないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>SpinShelfはAXUIElementSetAttributeValueでkAXPositionAttributeとkAXSizeAttributeのみを変更する。他の属性（タイトル、コンテンツ等）は一切変更しない。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Verification: other app settings unchanged</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 11: インストール/アップデート -->
+<!-- ============================================================ -->
+<details class="category" id="cat11">
+<summary class="b11"><span class="cat-badge c11">CAT-11</span>インストール/アップデート (P087 - P091)<span class="cat-count-badge">5 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c11">P087</span><span class="test-title">swift buildで実行可能バイナリ生成</span><span class="persona">ビルドテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>Swift toolchainがインストールされていること。ソースコードがclone済み。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>ターミナルでSpinShelfディレクトリに移動する</li>
+      <li><code>swift build</code> を実行する</li>
+      <li>ビルドが成功（exit code 0）することを確認する</li>
+      <li>.build/debug/SpinShelf バイナリが生成されていることを確認する</li>
+      <li><code>swift run</code> でアプリが起動することを確認する</li>
+      <li>メニューバーにアイコンが表示されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>Package.swiftの設定に基づきSPMビルドが成功する。実行可能ターゲット（SpinShelfApp）がバイナリとして生成される。依存関係なし（純粋なmacOS SDK依存のみ）。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Terminal output: swift build success / Binary file exists</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c11">P088</span><span class="test-title">クリーンビルド成功</span><span class="persona">クリーンビルドテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>Swift toolchainがインストールされていること。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li><code>swift package clean</code> でビルドキャッシュを削除する</li>
+      <li>.buildディレクトリが削除されたことを確認する</li>
+      <li><code>swift build</code> を実行する</li>
+      <li>クリーンビルドが成功することを確認する</li>
+      <li>コンパイルエラーや警告がないことを確認する</li>
+      <li>ビルドされたバイナリが実行可能であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>クリーンビルドが0エラー0ワーニングで成功する。全ソースファイルが正しくコンパイルされる。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Terminal output: clean build log</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c11">P089</span><span class="test-title">初回権限要求表示</span><span class="persona">初回起動テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelfの初回起動。アクセシビリティ権限未付与。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfを初めて起動する</li>
+      <li>macOSの「アクセシビリティ」権限要求ダイアログが自動的に表示されることを確認する</li>
+      <li>ダイアログに「SpinShelf」アプリ名が表示されていることを確認する</li>
+      <li>「システム環境設定を開く」ボタンが機能することを確認する</li>
+      <li>権限を付与すると自動的にCarouselが開始されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>applicationDidFinishLaunching()でcheckAccessibility(prompt: true)が呼ばれ、macOSの標準権限ダイアログが表示される。権限付与後にpollUntilGranted()のコールバックでstartCarousel()が実行される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 初回起動時の権限ダイアログ</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c11">P090</span><span class="test-title">GitHub更新チェック</span><span class="persona">アップデートチェックテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>インターネット接続あり。SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>メニューから「Check for Updates」をクリックする</li>
+      <li>GitHub API（api.github.com/repos/taniurakengo1/spinshelf/releases/latest）にリクエストが送信されることを確認する</li>
+      <li>レスポンスのtag_nameとUpdateChecker.currentVersion（0.1.0）が比較されることを確認する</li>
+      <li>最新版の場合:「You're Up to Date」ダイアログが表示されることを確認する</li>
+      <li>新バージョンがある場合:「Update Available」ダイアログに新バージョン番号が表示されることを確認する</li>
+      <li>「Open Release Page」ボタンでブラウザが開くことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>URLSessionのdataTaskでGitHub APIにリクエスト（Accept: application/vnd.github+json, timeout: 10秒）。isNewer()でセマンティックバージョン比較。DispatchQueue.mainでUI更新。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: 更新チェック結果ダイアログ</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c11">P091</span><span class="test-title">LaunchAgent plist正常</span><span class="persona">LaunchAgentテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelfがインストール済み。ログイン時起動が設定済み。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>~/Library/LaunchAgents/ ディレクトリにSpinShelfのplistファイルが存在することを確認する</li>
+      <li>plistファイルの内容を確認する:
+        <br>- Label: com.spinshelf.launcher
+        <br>- ProgramArguments: SpinShelfバイナリのパス
+        <br>- RunAtLoad: true
+        <br>- KeepAlive: false
+      </li>
+      <li><code>launchctl list | grep spinshelf</code> でサービスが登録されていることを確認する</li>
+      <li>macOSを再起動し、SpinShelfが自動起動することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>LaunchAgent plistが正しいフォーマットで存在し、launchctlに登録されている。RunAtLoad: trueによりログイン時に自動起動する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">plist file contents / launchctl output</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 12: 互換性 -->
+<!-- ============================================================ -->
+<details class="category" id="cat12">
+<summary class="b12"><span class="cat-badge c12">CAT-12</span>互換性 (P092 - P096)<span class="cat-count-badge">5 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c12">P092</span><span class="test-title">macOS 13 Ventura対応</span><span class="persona">Venturaテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>macOS 13 VenturaがインストールされたマシンまたはVM。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>macOS 13 Venturaでswift buildを実行する</li>
+      <li>ビルドが成功することを確認する</li>
+      <li>swift runでSpinShelfを起動する</li>
+      <li>メニューバーアイコンが表示されることを確認する</li>
+      <li>2台のディスプレイ接続時にCtrl+Shift+→ で回転が動作することを確認する</li>
+      <li>設定ウィンドウが正常に表示されることを確認する</li>
+      <li>SF Symbolsが正しく表示されることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>使用しているAPI（AppKit, CoreGraphics, Accessibility）はmacOS 13で利用可能。OSAllocatedUnfairLock（macOS 13+）が動作する。SwiftUIのViewも正常にレンダリングされる。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: macOS 13での動作 / sw_vers output</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c12">P093</span><span class="test-title">macOS 14 Sonoma対応</span><span class="persona">Sonomaテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>macOS 14 Sonomaがインストールされたマシン。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>macOS 14 Sonomaでswift buildを実行する</li>
+      <li>ビルドが成功することを確認する</li>
+      <li>SpinShelfを起動し、全機能が動作することを確認する</li>
+      <li>アクセシビリティ権限のUI（Sonomaで変更されたUI）が正常に動作することを確認する</li>
+      <li>回転機能、設定ウィンドウ、メニュー表示が全て正常であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>macOS 14のAPIに互換性問題がないこと。Sonomaのデスクトップウィジェット機能がSpinShelfの回転に影響しないこと。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: macOS 14での動作</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c12">P094</span><span class="test-title">macOS 15 Sequoia対応</span><span class="persona">Sequoiaテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>macOS 15 Sequoiaがインストールされたマシン。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>macOS 15 Sequoiaでswift buildを実行する</li>
+      <li>ビルドが成功することを確認する</li>
+      <li>SpinShelfを起動し、全機能が動作することを確認する</li>
+      <li>Sequoiaの新しいウィンドウタイリング機能との干渉がないことを確認する</li>
+      <li>CGSSetWindowAlphaなどのPrivate APIがSequoiaでも動作することを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>macOS 15で非推奨や削除されたAPIがないこと。Private API（CGSMainConnectionID, CGSSetWindowAlpha）が引き続き動作すること。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Screenshot: macOS 15での動作 / Build log</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c12">P095</span><span class="test-title">Apple Silicon (arm64) 動作</span><span class="persona">Apple Siliconテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>Apple Silicon Mac（M1/M2/M3/M4）が利用可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Apple Silicon Macでswift buildを実行する</li>
+      <li>ビルドされたバイナリのアーキテクチャを確認する: <code>file .build/debug/SpinShelf</code> → arm64</li>
+      <li>SpinShelfを起動し、全機能が動作することを確認する</li>
+      <li>Rosettaを使用せずネイティブarm64で実行されていることを確認する</li>
+      <li>Activity Monitorで「Kind」が「Apple」であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>Swiftコンパイラがネイティブarm64バイナリを生成する。CoreGraphics、AppKit、Accessibility APIがarm64で正常動作する。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">file command output / Activity Monitor Kind column</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c12">P096</span><span class="test-title">Intel (x86_64) 動作</span><span class="persona">Intelテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>Intel Mac（2020以前）が利用可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>Intel Macでswift buildを実行する</li>
+      <li>ビルドされたバイナリのアーキテクチャを確認する: <code>file .build/debug/SpinShelf</code> → x86_64</li>
+      <li>SpinShelfを起動し、全機能が動作することを確認する</li>
+      <li>Activity Monitorで「Kind」が「Intel」であることを確認する</li>
+      <li>回転機能、設定ウィンドウ、メニュー表示が全て正常であることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>Swiftコンパイラがx86_64バイナリを生成する。全APIがIntelアーキテクチャで正常動作する。CGSMainConnectionID等のPrivate APIもIntelで利用可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">file command output / Activity Monitor Kind column</div></div>
+</div>
+
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- Category 13: 耐久性/信頼性 -->
+<!-- ============================================================ -->
+<details class="category" id="cat13">
+<summary class="b13"><span class="cat-badge c13">CAT-13</span>耐久性/信頼性 (P097 - P100)<span class="cat-count-badge">4 tests</span></summary>
+<div class="category-content">
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c13">P097</span><span class="test-title">5分間メモリ/CPU安定</span><span class="persona">長時間テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>SpinShelf起動中。2台のディスプレイ接続。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfを起動する</li>
+      <li>起動直後のメモリ使用量とCPU使用率を記録する</li>
+      <li>30秒ごとにCtrl+Shift+→で回転を実行する（5分間で計10回）</li>
+      <li>各回転後のメモリ使用量を記録する</li>
+      <li>5分後のメモリ使用量が起動時から大幅に増加していないこと（+10MB以内）を確認する</li>
+      <li>アイドル時のCPU使用率が1%以下を維持していることを確認する</li>
+      <li>コンソールログにエラーが出力されていないことを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>メモリ使用量が安定（リーク無し）。CPU使用率がアイドル時0%近く。回転時のCPUスパイクは一時的ですぐに0に戻る。エラーログなし。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Memory/CPU graph over 5 minutes</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c13">P098</span><span class="test-title">100回回転サイクル</span><span class="persona">繰り返しテスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>2台のディスプレイ接続。複数ウィンドウ存在。自動化スクリプトが利用可能。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>自動化スクリプトを準備する（osascript または cliclick）</li>
+      <li>Ctrl+Shift+→ を50回実行する（間隔: 2秒）</li>
+      <li>Ctrl+Shift+← を50回実行する（間隔: 2秒）</li>
+      <li>合計100回の回転が全てエラーなく完了することを確認する</li>
+      <li>100回目の回転後、ウィンドウが初期位置に戻っていることを確認する（50右+50左=元の位置）</li>
+      <li>コンソールログに「Rotation complete」が100回出力されていることを確認する</li>
+      <li>メモリ使用量が安定していることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>100回の回転で1回もエラー/クラッシュが発生しない。isRotatingフラグのロック/アンロックが全回正しく動作する。メモリリークなし。ウィンドウ位置の精度が維持される。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Automation script output / Console log count / Memory graph</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c13">P099</span><span class="test-title">ディスプレイ再接続安定</span><span class="persona">再接続テスター</span></div>
+  <div class="test-section"><div class="test-section-title">Preconditions</div><p>外部ディスプレイが接続されていること。SpinShelf起動中。</p></div>
+  <div class="test-section"><div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>2台のディスプレイで正常動作を確認する</li>
+      <li>外部ディスプレイを取り外す</li>
+      <li>5秒待つ</li>
+      <li>外部ディスプレイを再接続する</li>
+      <li>上記の取り外し→再接続を5回繰り返す</li>
+      <li>各再接続後に回転機能が正常に動作することを確認する</li>
+      <li>refreshDisplays()が毎回正しくディスプレイリストを更新していることをログで確認する</li>
+      <li>5回のサイクル後にメモリ使用量が安定していることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section"><div class="test-section-title">Expected Results</div><p>didChangeScreenParametersNotificationが毎回発火し、refreshDisplays()でdisplays配列が更新される。NotificationCenterのobserverがdeinitまで維持される。[weak self]パターンでメモリリークなし。</p></div>
+  <div class="test-section"><div class="test-section-title">Evidence</div><div class="evidence-placeholder">Console log: 5 cycles of disconnect/reconnect</div></div>
+</div>
+
+<div class="test-card">
+  <div class="test-card-header"><span class="test-id c13">P100</span><span class="test-title">エラーログ未出力</span><span class="persona">ログ監視テスター</span></div>
+  <div class="test-section">
+    <div class="test-section-title">Preconditions</div>
+    <p>SpinShelf起動中。全テスト（P001-P099）実行後。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Test Steps</div>
+    <ol>
+      <li>SpinShelfの全コンソールログを収集する</li>
+      <li>ログの中から「[SpinShelf]」プレフィックスの行を抽出する</li>
+      <li>以下の正常メッセージのみが出力されていることを確認する:
+        <br>- "Carousel started"
+        <br>- "Input monitoring started"
+        <br>- "Active rotation displays: N"
+        <br>- "Display N: WxH at (X, Y)"
+        <br>- "⌃⇧→ detected" / "⌃⇧← detected"
+        <br>- "Rotating right/left with N windows across M displays"
+        <br>- "Rotation complete"
+        <br>- "Display configuration changed"
+        <br>- "Shortcuts updated"
+        <br>- "Display order changed in settings"
+      </li>
+      <li>予期しないエラーメッセージ、スタックトレース、クラッシュログがないことを確認する</li>
+      <li>「Need at least 2 displays」は単一ディスプレイテスト（P007）でのみ出力されていることを確認する</li>
+      <li>「Failed to create CGEventTap」は権限テスト（P082/P083）でのみ出力されていることを確認する</li>
+    </ol>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Expected Results</div>
+    <p>NSLogで出力される全メッセージが想定されたパターンに合致する。予期しないエラーログ、例外、クラッシュレポートが存在しない。全テスト通過後のログが健全であることが最終確認として記録される。</p>
+  </div>
+  <div class="test-section">
+    <div class="test-section-title">Evidence</div>
+    <div class="evidence-placeholder">Full console log analysis / grep "[SpinShelf]" results</div>
+  </div>
+</div>
+
+</div>
+</details>
+
+</div><!-- /container -->
+
+<script>
+// Dashboard item click → open corresponding category
+document.querySelectorAll('.dashboard-item').forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(item.getAttribute('href'));
+    if (target) {
+      target.open = true;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
